@@ -154,7 +154,7 @@ def post_detail(request, slug):
     tags = Tag.objects.all()
     comment_form = CommentForm()
     new_comment = None
-    # posted comment
+    # posted comment 
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
