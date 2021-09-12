@@ -37,7 +37,7 @@ class RegisterForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['content']
+        fields = ['name', 'email', 'content']
 
 class ProfileForm(forms.ModelForm):
     class Meta:

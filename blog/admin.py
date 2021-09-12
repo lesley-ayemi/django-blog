@@ -12,7 +12,14 @@ admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.register(Profile)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email']
+    list_display = ('name', 'content', 'post', 'timestamp', 'active')
+    list_filter = ('active', 'timestamp')
+    search_fields = ('name', 'email', 'content')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
+
 admin.site.register(Comment, CommentAdmin)
 class AccountAdmin(UserAdmin):
     list_display = ['email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active']

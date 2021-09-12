@@ -104,16 +104,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
-class Comment(models.Model):
-    name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.CharField(max_length=300, null=True, blank=True)
-    content = models.TextField(null=True, blank=True)
-    # post = models.ForeignKey('Post', related_name='comment', on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __unicode__(self):
-        return self.name
-
 class Post(models.Model):
     STATUS = (
         ('published', 'PUBLISHED'),
@@ -126,8 +116,8 @@ class Post(models.Model):
     content = FroalaField()
     blog_image = models.ImageField(upload_to='images/blog/', null=True, blank=True)
     categories = models.ForeignKey(Category, null=True, on_delete=CASCADE, blank=True)
-    comments = models.ManyToManyField(Comment, blank=True)
-    comment_count = models.IntegerField(default=0, null=True)
+    # comments = models.ManyToManyField(Comment, blank=True)
+    # comment_count = models.IntegerField(default=0, null=True)
     tags = models.ManyToManyField(Tag)
     status = models.CharField(max_length=50, null=True, choices=STATUS, default='published')
     featured = models.BooleanField(default=False)
@@ -148,3 +138,18 @@ class Post(models.Model):
         return self.title
     
     
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', null=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    content = models.TextField(null=True, blank=True)
+    active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.content, self.name)
+    # def __unicode__(self):
+    #     return self.name

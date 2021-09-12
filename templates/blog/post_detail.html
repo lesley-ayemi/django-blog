@@ -166,7 +166,32 @@
                     <div class="comments">
                         <div class="comments__list">
                             <div class="comment-listing-tile">
-                                <h4>{{post.comments.all.count}} Comments Found</h4>
+                            <h4>{{comments.count}} Comments Found</h4>
+                            </div>
+                            
+                            {% for comment in comments %}
+                                
+                            
+                                
+                            <article class="review-box clearfix">
+                                <figure class="rev-thumb"><img src="/static/assets/dist/img/profiles/1.jpg"
+                                        alt=""></figure>
+                                <div class="rev-content">
+                                    <div class="rev-info"><strong>{{comment.name}} – {{comment.timestamp}}:
+                                        </strong></div>
+                                    <div class="rev-text">
+                                        <p>{{comment.content | linebreaks}}</p>
+                                    </div>
+                                    <div class="rev-reply">
+                                        <a href="#"><span><i class="fa fa-reply"
+                                                    aria-hidden="true"></i> Reply</span></a>
+                                    </div>
+                                </div>
+
+                            </article>
+                            {% endfor %}
+
+                                <!-- <h4>{{post.comments.all.count}} Comments Found</h4>
                             </div>
                             
                             {% for comment in post.comments.all %}
@@ -189,7 +214,7 @@
                                 </div>
 
                             </article>
-                            {% endfor %}
+                            {% endfor %} -->
 
                         </div>
                         
@@ -197,10 +222,11 @@
                             <div class="comment-box-tile">
                                 <h4>Leave a Comment</h4> 
                             </div>
-                            <form class="comments__form">
+                            <form class="comments__form" action="{% url 'post-detail' post.slug %}" method="POST">
+                                {% csrf_token %}
                                 <div class="comments__form-info">
                                     <div class="comments__form-field">
-                                        <input id="comments__form-label-name" name="author"
+                                        <input id="comments__form-label-name" name="name"
                                             placeholder="Name" type="text"
                                             class="comments__form-input">
                                         <label class="comments__form-label"
@@ -209,7 +235,7 @@
                                         </label>
                                     </div>
                                     <div class="comments__form-field">
-                                        <input id="comments__form-label-mail" name="author"
+                                        <input id="comments__form-label-mail" name="email"
                                             placeholder="E-mail" type="text"
                                             class="comments__form-input">
                                         <label class="comments__form-label"
@@ -217,19 +243,10 @@
                                             <span class="comments__form-label-text">E-mail</span>
                                         </label>
                                     </div>
-                                    <div class="comments__form-field">
-                                        <input id="comments__form-label-site" name="author"
-                                            placeholder="Website" type="text"
-                                            class="comments__form-input">
-                                        <label class="comments__form-label"
-                                            for="comments__form-label-site">
-                                            <span class="comments__form-label-text">Website</span>
-                                        </label>
-                                    </div>
                                 </div>
                                 <div class="comments__form-text">
                                     <div class="comments__form-field">
-                                        <textarea id="comments__form-label-text" name="author"
+                                        <textarea id="comments__form-label-text" name="content"
                                             placeholder="Express your thoughts" type="text"
                                             class="comments__form-input comments__form-textarea"></textarea>
                                         <label class="comments__form-label"

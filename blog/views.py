@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
-from blog.forms import ProfileForm, RegisterForm, UserUpdateForm, addPostForm
+from blog.forms import CommentForm, ProfileForm, RegisterForm, UserUpdateForm, addPostForm
 from blog.models import Category, Comment, Post, Tag
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -80,6 +80,7 @@ def home(request):
         lastest = Post.objects.order_by('-published_at')[0:3]
         categories = Category.objects.all()
         about = Biography.objects.get()
+        comment = Comment.objects.filter(active=True)
         # Pagination
         paginator = Paginator(posts, 5)
         page_request_var = 'page'
@@ -99,6 +100,7 @@ def home(request):
             'page_request_var':page_request_var,
             'categories':categories,
             'about':about,
+            'comment':comment,
         }
 
     return render(request, 'blog/main.html', context)
@@ -145,18 +147,29 @@ def search_article(request):
     return render(request, 'blog/search_result.html', context)
 
 def post_detail(request, slug):
-    comments = Comment.objects.all()
     post = Post.objects.get(slug=slug)
     categories = Category.objects.all()
     about = Biography.objects.get()
-    # profile = Profile.objects.get(post)
+    comments = Comment.objects.filter(post=post)
     tags = Tag.objects.all()
+    comment_form = CommentForm()
+    new_comment = None
+    # posted comment
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+        else:
+            comment_form = CommentForm()
     context = {
         'post':post,
         'tags':tags,
         'categories':categories,
         'about':about,
         'comments':comments,
+        'comment_form':comment_form,
         # 'profile':profile,
     }
     return render(request, 'blog/post_detail.html', context)
