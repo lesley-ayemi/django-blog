@@ -1,0 +1,130 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<div class="white_card card_height_100 mb_30">
+    <div class="white_card_header">
+        <div class="box_header m-0">
+            <div class="main-title">
+                <h3 class="m-0">All Posts</h3>
+
+                <!-- {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Successfully Updated
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                {% endfor %} -->
+            </div>
+        </div>
+    </div>
+    <div class="white_card_body">
+        <div class="QA_section">
+            <div class="white_box_tittle list_header">
+                {% include 'partials/messages.html' %}
+                <!-- <h4>shorting Arrow</h4>
+                <div class="box_right d-flex lms_block">
+                    <div class="serach_field_2">
+                        <div class="search_inner">
+                            <form active="#">
+                                <div class="search_field">
+                                    <input type="text" placeholder="Search content here...">
+                                </div>
+                                <button type="submit"> <i class="ti-search"></i> </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="add_button ml-10">
+                        <a href="#" data-toggle="modal" data-target="#addcategory" class="btn_1">Add New</a>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="QA_table mb_30">
+                <!-- table-responsive -->
+                <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper no-footer">
+                    <table class="table lms_table_active3 dataTable no-footer dtr-inline" id="DataTables_Table_1"
+                        role="grid" aria-describedby="DataTables_Table_1_info" style="width: 893px;">
+                        <thead>
+                            <tr role="row">
+                                <th scope="col" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 93px;" aria-sort="ascending"
+                                    aria-label="title: activate to sort column descending">title</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 123px;"
+                                    aria-label="Category: activate to sort column ascending">Category</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 117px;"
+                                    aria-label="Teacher: activate to sort column ascending">Total comments</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 115px;"
+                                    aria-label="Lesson: activate to sort column ascending">Author</th>
+                                    <!-- <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                        rowspan="1" colspan="1" style="width: 61px;"
+                                        aria-label="Price: activate to sort column ascending">Price</th> -->
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 102px;"
+                                    aria-label="Status: activate to sort column ascending">Status</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                        rowspan="1" colspan="1" style="width: 70px;"
+                                        aria-label="Enrolled: activate to sort column ascending">Published</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 70px;"
+                                    aria-label="Enrolled: activate to sort column ascending">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% if user_post %}
+                                
+                            
+                            {% for post in user_post %}
+                                
+                            <tr role="row" class="odd">
+                                <th scope="row" tabindex="0" class="sorting_1"> <a href="#" class="question_content">
+                                {{post.title|truncatewords:4}}</a></th>
+                                <td>{{post.categories}}</td>
+                                <td>{{post.comment_count}}</td>
+                                <td>{{post.author}}</td>
+                                <!-- <td>16</td>
+                                <td>$25.00</td> -->
+                                <td>
+                                    {% if post.status == 'published' %}
+                                    <a href="#" class="badge badge-success">{{post.status}}</a>
+                                    {% else %}
+                                    <a href="#" class="badge badge-secondary">{{post.status}}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{post.published_at|date}}</td>
+                                <td>
+                                    <a href="{% url 'update-post' post.slug %}" class="badge badge-primary">Edit</a>
+                                    <a href="{% url 'delete-post' post.slug %}" class="badge badge-danger">Delete</a>
+                                
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            {% else %}
+                            <div class="text-center">No Posts Yet please <a href="{% url 'add-post'%}" class="btn btn-outline-success rounded-pill">Add</a></div>
+                            {% endif %}
+
+                        </tbody>
+                    </table>
+                    <!-- <div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1
+                        to 10 of 11 entries</div>
+                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_1_paginate"><a
+                            class="paginate_button previous disabled" aria-controls="DataTables_Table_1" data-dt-idx="0"
+                            tabindex="0" id="DataTables_Table_1_previous"><i class="ti-arrow-left"></i></a><span><a
+                                class="paginate_button current" aria-controls="DataTables_Table_1" data-dt-idx="1"
+                                tabindex="0">1</a><a class="paginate_button " aria-controls="DataTables_Table_1"
+                                data-dt-idx="2" tabindex="0">2</a></span><a class="paginate_button next"
+                            aria-controls="DataTables_Table_1" data-dt-idx="3" tabindex="0"
+                            id="DataTables_Table_1_next"><i class="ti-arrow-right"></i></a></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

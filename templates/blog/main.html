@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+<!--slider-->
+{% block content-bg %}
+<section class="general-banner banner-layout-one">
+    <div class="general-banner-inner">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                
+                {% if featured %}
+                    
+                {% for f in featured %}
+                <div class="swiper-slide  banner-card">
+                    <div class="featured-post-image">
+                        <img src="{{f.blog_image.url}}" height="200" alt="....">
+                        <div class="mask"></div>
+                    </div>
+                    <!-- // featured-post-image -->
+                    <div class="featured-content-holder">
+                        <div class="featured-content-meta">
+                            <a href="#"><span class="category">{{f.categories}}</span></a>
+                        </div>
+                        <div class="featured-content-title">
+                            <h2><a href="{{f.get_absolute.url}}">{{f.title}}</a></h2>
+                        </div>
+                        <div class="featured-posted-date">
+                            <span class="posted-date">{{f.published_at|date}}</span>
+                        </div>
+                    </div>
+                   <!-- // featured-content-holder -->
+                </div>
+                    
+                {% endfor %}
+                {% else %}
+                <!-- <div style="text-align: right;">No Trending Post</div> -->
+
+                {% endif %}
+                    
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- <div class="swiper-button-next swiper-button-white"></div>
+            <div class="swiper-button-prev swiper-button-white"></div> -->
+        </div>
+    </div>
+    <!-- // general banner inner -->
+</section>
+    
+{% endblock content-bg %}
+<!--slider end-->
+
+
+{% block content %}
+<div class="main-post-area-inner">
+    <div class="row">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} col-lg-8 text-center text-dark" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="main-post-area-holder">
+
+                
+                {% if posts %}
+                      
+                {% for post in posts %}
+                    
+                <article class="post-details-holder wow  fadeInUp">
+                    <div class="post-image" style="height: 400px;">
+                        
+                        {% if post.blog_image %}
+                        <img src="{{post.blog_image.url}}" alt="{{post.title}}">
+                        {% else %}
+                        <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="">
+                            
+                        {% endif %}
+                            
+                    </div>
+                    <!-- // post image -->
+                    <div class="post-title">
+                        <h2>{{post.title}}</h2>
+                    </div>
+                    <!-- // post-title -->
+                    <div class="post-the-content clearfix layout-one-first-letter">
+                        <p>
+                            
+                            {{post.content|safe|truncatewords:30}}
+                        </p>
+                    </div>
+                    <!-- // post-the-content -->
+                    <div class="post-permalink">
+                        <a href="{{post.get_absolute_url}}">Continue Reading</a>
+                    </div>
+                    <!-- // post-permalink -->
+                    <div class="post-meta-and-share">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                                <div class="post-author">
+                                    <span class="post-author"><a href="#">{{post.published_at}}</a></span>
+                                </div>
+                            </div>
+                            <!-- // col 4 -->
+                            <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="post-share">
+                                    <div class="share"></div>
+                                </div>
+                            </div> -->
+                            <!-- // col 4 -->
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="post-comment-count">
+                                    <span class="post-comment-count"><a href="#disqus_thread">0 Comment</a></span>
+                                </div>
+                            </div>
+                            <!-- // col 4 -->
+                        </div>
+                        <!-- // row -->
+                    </div>
+                </article>
+                {% endfor %}
+
+                
+                <!-- // post-details-holder -->
+
+            </div>
+            <div class="pagination_holder">
+                <ul class="pagination">
+                    
+                    {% if posts.has_previous %}
+                    <li class=""><a href="?{{page_request_var}}={{posts.previous_page_number}}">«</a></li>
+                    {% else %}
+                    <li class="disabled"><a href="#">«</a></li>
+                    {% endif %}
+                    
+                    
+                    {% for i in posts.paginator.page_range %}
+                    
+                    {% if post_number == i %}
+                    <li class="active"><a href="#">{{i}} <span class="sr-only">(current)</span></a></li>
+                    {% else %}
+                    <li class=""><a href="?{{page_request_var}}={{i}}">{{i}} <span class="sr-only">(current)</span></a></li>
+        
+                        
+                    {% endif %}
+                        
+                        
+                    {% endfor %}
+                        
+                    
+                    {% if posts.has_next %}
+                    <li><a href="?{{page_request_var}}={{posts.next_page_number}}">»</a></li>
+                    {% endif %}
+                        
+                        
+                </ul>
+                {% else %}
+                <h4 class="text-secondary text-center">No Post</h4>
+
+                {% endif %}
+            </div>
+            <!-- // main-post-area-holder -->
+        </div>
+        <!--Right sidebar widget-->
+        <!-- // col -->
+       {% include 'partials/home-sidebar.html' %}
+        <!-- // col 4 -->
+    </div>
+    <!-- // main row that divies left and sidebar -->
+</div>
+{% endblock content %}
+    
+    

@@ -1,0 +1,138 @@
+<nav class="sidebar dark_sidebar">
+    <div class="logo d-flex justify-content-between">
+        <a class="large_logo" href="{% url 'dashboard' %}"><img src="/static/img/logo_white.png" alt=""></a>
+        <a class="small_logo" href="{% url 'dashboard' %}"><img src="/static/img/mini_logo.png" alt=""></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu">
+        <li class="">
+            <a class="" href="{% url 'dashboard' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/dashboard.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Overview</span>
+                </div>
+            </a>
+        </li>
+        <!-- <li class="">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/2.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Application </span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="editor.html">editor</a></li>
+                <li><a href="mail_box.html">Mail Box</a></li>
+                <li><a href="chat.html">Chat</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </li>
+        <li class="">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/3.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Pages</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="resister.html">Register</a></li>
+                <li><a href="error_400.html">Error 404</a></li>
+                <li><a href="error_500.html">Error 500</a></li>
+                <li><a href="forgot_pass.html">Forgot Password</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </li>
+        <li class="">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/4.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Admins</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="admin_list.html">Admin List</a></li>
+                <li><a href="add_new_admin.html">Add New Admin</a></li>
+            </ul>
+        </li> -->
+        <li class="">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/11.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Articles</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="{% url 'show-post'%}">All Post</a></li>
+                <li><a href="{% url 'add-post' %}">Create a new article</a></li>
+            </ul>
+        </li>
+        <!-- <li class="">
+            <a href="navs.html" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/12.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Navs</span>
+                </div>
+            </a>
+        </li> -->
+        <li class="">
+            <a class="" href="{% url 'profile' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/5.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Profile</span>
+                </div>
+            </a>
+            <!-- <ul>
+                <li><a href="user_list.html">Users List</a></li>
+                <li><a href="add_new_user.html">Add New User</a></li>
+            </ul> -->
+        </li>
+        <li class="">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="/static/img/menu-icon/11.svg" alt="">
+                </div>
+                <div class="nav_title">
+                    <span>Settings</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="{% url 'password'%}">Password Management</a></li>
+                <!-- <li><a href="{% url 'add-post' %}">Create a new article</a></li> -->
+            </ul>
+        </li>
+        <li class="">
+            <a class="" href="{% url 'logout' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <i class="ti-power-off"></i>
+                </div>
+                <div class="nav_title">
+                    <span>Logout</span>
+                </div>
+            </a>
+            <!-- <ul>
+                <li><a href="user_list.html">Users List</a></li>
+                <li><a href="add_new_user.html">Add New User</a></li>
+            </ul> -->
+        </li>
+        
+
+
+    </ul>
+</nav>

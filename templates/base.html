@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'includes/head.html' %}
+
+<body>
+    {% include 'includes/header.html' %}
+    <!-- Partials-->
+    {% block content-bg %}
+        
+    {% endblock content-bg %}
+        
+    <div class="container">
+        <div class="main-post-area-wrapper main-post-area-layout-one">
+            
+            {% block content %}
+                
+            {% endblock content %}
+                
+            <!-- // main-post-area-inner -->
+        </div>
+        <!-- // main-post-area-wrapper main-post-area-layout-one -->
+    </div>
+    <!-- // container -->
+
+    <div id="instafeed" class="instafeed owl-carousel feed-carousel">
+
+    </div>
+    <!--Footer-->
+    {% include 'includes/footer.html' %}
+
+    <!--Scripts-->
+    {% include 'includes/scripts.html' %}
+
+</body>
+
+
+
+
+<!-- Mirrored from offshorethemes.com/html/optimistic-blog/demo/index.php by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 26 Aug 2021 13:27:20 GMT -->
+
+</html>

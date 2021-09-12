@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content-bg %}
+
+<div class="general-single-page-layout single-page-layout-one">
+    <div class="breadcrumb-wrapper  justify-content-center text-center">
+        <div class="breadcrumb" style="background:url(/static/assets/dist/img/breadcrumb/two.jpg)">
+            <!-- <div class="justify-content-end">
+                <div class="row">
+                    <div class="col">Home</div>
+                    <div class="col">Title</div>
+                    <div class="col">didh</div>
+                </div>
+            </div> -->
+            <ul class="breadcrumb-listing container">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">{{post.categories}}</a></li>
+                <li><a href="#">{{post.title}}</a></li>
+            </ul>
+            <div class="mask"></div>
+        </div>
+        <!-- // breadcrumb -->
+    </div>
+
+    {% endblock content-bg %}
+
+
+    {% block content %}
+
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="main-post-area-holder">
+                <article class="single-page-details-holder wow fadeInUp">
+                    <div class="post-image">
+                        <img src="assets/dist/img/post-eight.jpg" alt="....">
+                    </div>
+                    <div class="single-page-other-information-holder">
+                        <div class="posted-category">
+                            <div class="post-meta-category">
+                                <span><a href="#">Lifestyle</a></span>
+                                <span><a href="#">Health</a></span>
+                                <span><a href="#">Art</a></span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <h2>{{post.title}}</h2>
+                        </div>
+                        <!-- // post-title -->
+                        <div class="post-extra-meta">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="post-author">
+                                        <img src="{{post.author.profile.image.url}}" alt="...." height="30">
+                                        <span><a href="#">{{post.author}}</a></span>
+                                    </div>
+                                </div>
+                                <!-- // col -->
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="posted-date">
+                                        <span><a href="#">{{post.published_at|date}}</a></span>
+                                    </div>
+                                </div>
+                                <!-- // col -->
+                            </div>
+                            <!-- // row -->
+                        </div>
+                        <!-- // post-extra-meta -->
+                        <div class="post-the-content">
+                            <!-- <p>
+                            {{post.description}}
+                        </p> -->
+                            <p>
+                                {{post.content|safe}}
+                            </p>
+
+                        </div>
+                        <!-- // post-the-content  -->
+                        <div class="post-share">
+                            <div class="share"></div>
+                        </div>
+                        <div class="tags-meta-and-others clearfix">
+                            <div class="post-tags">
+
+                                {% for post_tag in post.tags.all %}
+                                <span><a href="#">{{post_tag}}</a></span>
+
+                                {% endfor %}
+
+                                <!-- <span><a href="#">Trending</a></span> -->
+                            </div>
+                            <div class="view-count">
+                                <span class="display-view-count"><i class="fa fa-eye" aria-hidden="true"></i> 568
+                                    Views</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // single-page-information-holder -->
+                </article>
+                <div class="related-posts-wrapper">
+                    <div class="related-posts-inner">
+                        <div class="related-post-carousel owl-carousel">
+                            <div class="grid-item item">
+                                <article class="post-details-holder layout-three-post-details-holder wow fadeInUp">
+                                    <div class="post-image">
+                                        <img src="assets/dist/img/post-seven.jpg" alt="...">
+                                    </div>
+                                    <!-- // post image -->
+                                    <div class="post-extra-details">
+                                        <div class="post-title">
+                                            <h2><a href="#">That evening at bali beach was wounderful
+                                                    then any other evening</a></h2>
+                                        </div>
+                                    </div>
+                                    <!-- // post extra details -->
+                                </article>
+                                <!-- // article -->
+                            </div>
+                            <!-- // grid-item -->
+                            <div class="grid-item item">
+                                <article class="post-details-holder layout-three-post-details-holder wow fadeInUp">
+                                    <div class="post-image">
+                                        <img src="assets/dist/img/post-two.jpg" alt="....">
+                                    </div>
+                                    <!-- // post image -->
+                                    <div class="post-extra-details">
+                                        <div class="post-title">
+                                            <h2><a href="#">5 Reasons Why Ladies Prefer To Have Brown
+                                                    Hair And Black Dress</a></h2>
+                                        </div>
+                                    </div>
+                                    <!-- // post extra details -->
+                                </article>
+                                <!-- // article -->
+                            </div>
+                            <!-- // grid-item -->
+                        </div>
+                        <!-- // related-post-carousel -->
+                    </div>
+                    <!-- // related-posts-inner -->
+                </div>
+                <!-- // related-posts-wrapper -->
+                <!-- <div id="disqus_thread"></div>
+                <script>
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                    /*
+                    var disqus_config = function () {
+                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+                    */
+                    (function () { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://lesleyblog.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                        powered by Disqus.</a></noscript> -->
+
+
+                <div class="comment-area-wrapper">
+                <div class="comment-area-inner">
+                    <div class="comments">
+                        <div class="comments__list">
+                            <div class="comment-listing-tile">
+                                <h4>{{post.comments.all.count}} Comments Found</h4>
+                            </div>
+                            
+                            {% for comment in post.comments.all %}
+                                
+                            
+                                
+                            <article class="review-box clearfix">
+                                <figure class="rev-thumb"><img src="/static/assets/dist/img/profiles/1.jpg"
+                                        alt=""></figure>
+                                <div class="rev-content">
+                                    <div class="rev-info"><strong>{{comment.name}} – {{comment.timestamp}}:
+                                        </strong></div>
+                                    <div class="rev-text">
+                                        <p>{{comment.content}}</p>
+                                    </div>
+                                    <div class="rev-reply">
+                                        <a href="#"><span><i class="fa fa-reply"
+                                                    aria-hidden="true"></i> Reply</span></a>
+                                    </div>
+                                </div>
+
+                            </article>
+                            {% endfor %}
+
+                        </div>
+                        
+                        <div class="comment-box">
+                            <div class="comment-box-tile">
+                                <h4>Leave a Comment</h4> 
+                            </div>
+                            <form class="comments__form">
+                                <div class="comments__form-info">
+                                    <div class="comments__form-field">
+                                        <input id="comments__form-label-name" name="author"
+                                            placeholder="Name" type="text"
+                                            class="comments__form-input">
+                                        <label class="comments__form-label"
+                                            for="comments__form-label-name">
+                                            <span class="comments__form-label-text">Name</span>
+                                        </label>
+                                    </div>
+                                    <div class="comments__form-field">
+                                        <input id="comments__form-label-mail" name="author"
+                                            placeholder="E-mail" type="text"
+                                            class="comments__form-input">
+                                        <label class="comments__form-label"
+                                            for="comments__form-label-mail">
+                                            <span class="comments__form-label-text">E-mail</span>
+                                        </label>
+                                    </div>
+                                    <div class="comments__form-field">
+                                        <input id="comments__form-label-site" name="author"
+                                            placeholder="Website" type="text"
+                                            class="comments__form-input">
+                                        <label class="comments__form-label"
+                                            for="comments__form-label-site">
+                                            <span class="comments__form-label-text">Website</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="comments__form-text">
+                                    <div class="comments__form-field">
+                                        <textarea id="comments__form-label-text" name="author"
+                                            placeholder="Express your thoughts" type="text"
+                                            class="comments__form-input comments__form-textarea"></textarea>
+                                        <label class="comments__form-label"
+                                            for="comments__form-label-text">
+                                            <span class="comments__form-label-text">Express your
+                                                thoughts</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input name="submit" type="submit" id="submit"
+                                    class="comments__form-submit" value="Post Comment">
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+               
+            </div>
+                <!-- // comment-area-wrapper -->
+            </div>
+            <!-- // main-post-area-holder-->
+        </div>
+        <!-- // col -->
+
+        <!-- Rightside bar-->
+        {% include 'partials/home-sidebar.html' %}
+        <!-- // col -->
+    </div>
+
+    {% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="search-page">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-12">
+            <div class="page-heading">
+                 
+                 {% if posts_count %}
+                 <h2>Search result : <span>{{posts_count}}</span></h2>
+                 {% else %}                        
+                    
+                 {% endif %}
+                        
+            </div>
+            <div class="search-result-listing mt-3">
+                
+                {% if posts %}
+                    
+                {% for post in posts %}
+                    
+                <article class="post-details-holder layout-two-post-details-holder wow  fadeInUp">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                            <div class="post-image">
+                                <img src="{{post.blog_image.url}}" alt="....">
+                            </div>
+                            <!-- // post image -->
+                        </div>
+                        <!-- // col -->
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+
+                            <div class="post-meta-category">
+                                <p><a href="#">{{post.categories}}</a></p>
+                            </div>
+
+                            <div class="post-title">
+                                <h2><a href="#">{{post.title}}</a></h2>
+                            </div>
+
+                            <div class="post-meta-posted-date">
+                                <p><a href="#">{{post.published_at}}</a></p>
+                            </div>
+
+                            <div class="post-share">
+                                <div class="share"></div>
+                            </div>
+
+                        </div>
+                        <!-- // col -->
+                    </div>
+                    <!-- row -->
+                </article>
+                <!-- // end of article -->
+                {% endfor %}
+
+                {% else %}
+                <h4 class="text-secondary text-center">No Results Found </h4>
+                
+                {% endif %}
+            </div>
+            <!-- // search-result-listings -->
+        </div>
+        <!-- // col -->
+        {% include 'partials/home-sidebar.html' %}
+        <!-- // col 4 -->
+    </div>
+    <!-- // row that divides left and right sidebar -->
+</div>
+<!-- // search-page -->
+
+{% endblock content %}

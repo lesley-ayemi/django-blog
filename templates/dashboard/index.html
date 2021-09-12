@@ -1,0 +1,204 @@
+{% extends 'admin.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page_title_box d-flex flex-wrap align-items-center justify-content-between">
+            <div class="page_title_left d-flex align-items-center">
+                <h3 class="f_s_25 f_w_700 dark_text mr_30">Dashboard</h3>
+                <ol class="breadcrumb page_bradcam mb-0">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                    <li class="breadcrumb-item active">Analytic</li>
+                </ol>
+            </div>
+            <div class="page_title_right">
+                <div class="page_date_button d-flex align-items-center">
+                    <img src="img/icon/calender_icon.svg" alt="">
+                    August 1, 2020 - August 31, 2020
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-xl-6 ">
+        <div class="white_card mb_30 card_height_100">
+            <div class="white_card_header">
+                <div class="row align-items-center justify-content-between flex-wrap">
+                    <div class="col-lg-4">
+                        <div class="main-title">
+                            <h3 class="m-0">Stoke Details</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-right d-flex justify-content-end">
+                        <select class="nice_Select2 max-width-220">
+                            <option value="1">Show by month</option>
+                            <option value="1">Show by year</option>
+                            <option value="1">Show by day</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body">
+                <div id="management_bar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 ">
+        <div class="white_card card_height_100 mb_30 user_crm_wrapper">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single_crm">
+                        <div class="crm_head d-flex align-items-center justify-content-between">
+                            <div class="thumb">
+                                <img src="{% static 'img/crm/businessman.svg'%}" alt="">
+                            </div>
+                            <i class="fas fa-ellipsis-h f_s_11 white_text"></i>
+                        </div>
+                        <div class="crm_body">
+                            
+                            {% if post %}
+                            <h4>{{post.count}}</h4>
+                            {% else %}
+                            <h4>0</h4>
+                                
+                            {% endif %}
+                                
+                            <p>Total Articles</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single_crm ">
+                        <div
+                            class="crm_head crm_bg_1 d-flex align-items-center justify-content-between">
+                            <div class="thumb">
+                                <img src="{% static 'img/crm/customer.svg'%}" alt="">
+                            </div>
+                            <i class="fas fa-ellipsis-h f_s_11 white_text"></i>
+                        </div>
+                        <div class="crm_body">
+                            
+                            {% if published %}
+                            <h4>{{published.count}}</h4>
+                            {% else %}
+                            <h4>0</h4>
+                                
+                            {% endif %}
+                                
+                            <p>Total Published</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single_crm">
+                        <div
+                            class="crm_head crm_bg_2 d-flex align-items-center justify-content-between">
+                            <div class="thumb">
+                                <img src="{% static 'img/crm/infographic.svg'%}" alt="">
+                            </div>
+                            <i class="fas fa-ellipsis-h f_s_11 white_text"></i>
+                        </div>
+                        <div class="crm_body">
+                            
+                            {% if draft %}
+                            <h4>{{draft.count}}</h4>
+                            {% else %}
+                            <h4>0</h4>
+                                
+                            <!-- {% endif %} -->
+                                
+                            <p>Total Draft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="white_card card_height_100 mb_20 ">
+            <div class="white_card_header">
+                <div class="box_header m-0">
+                    <div class="main-title">
+                        <h3 class="m-0">Recent Posts</h3>
+                    </div>
+                    <div class="header_more_tool">
+                        <div class="dropdown">
+                            <span class="dropdown-toggle" id="dropdownMenuButton"
+                                data-toggle="dropdown">
+                                <i class="ti-more-alt"></i>
+                            </span>
+                            <div class="dropdown-menu dropdown-menu-right"
+                                aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#"> <i class="ti-eye"></i> Action</a>
+                                <a class="dropdown-item" href="#"> <i class="ti-trash"></i> Delete</a>
+                                <a class="dropdown-item" href="#"> <i class="fas fa-edit"></i> Edit</a>
+                                <a class="dropdown-item" href="#"> <i class="ti-printer"></i> Print</a>
+                                <a class="dropdown-item" href="#"> <i class="fa fa-download"></i>
+                                    Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body QA_section">
+                <div class="QA_table ">
+                    <!-- table-responsive -->
+                    <table class="table lms_table_active2 p-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Comments</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% if latest %}
+                                
+                                
+                            {% for post_obj in latest %}
+                                
+                            <tr>
+                                <td>
+                                    <div class="customer d-flex align-items-center">
+                                        <div class="thumb_34 mr_15 mt-0"><img
+                                                class="img-fluid radius_50"
+                                                src="{{post_obj.blog_image.url}}" alt=""></div>
+                                        <span class="f_s_12 f_w_600 color_text_5">{{post_obj.title|truncatewords:2}}</span>
+                                    </div>
+
+                                </td>
+                                <td class="f_s_12 f_w_400 color_text_6">{{post_obj.categories}}</td>
+                                <td class="f_s_12 f_w_400 color_text_7">{{post_obj.comment_count}}</td>
+                                <td class="f_s_12 f_w_400 color_text_6">{{post_obj.published_at}}</td>
+                                <td class="f_s_12 f_w_400 color_text_6">
+                                    <a href="{% url 'update-post' post_obj.slug %}" class="text_color_1">Edit</a>
+                                </td>
+
+                            </td>
+                            </tr>
+                            {% endfor %}
+
+
+                            {% else %}
+
+                            <div class="text-center text-primary mb-5">
+                                No recent posts yet, <a href="{% url 'add-post' %}" class="btn btn-sm btn-primary text-white">Click To Add</a>
+                            </div>
+
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+    

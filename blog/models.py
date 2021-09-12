@@ -2,8 +2,95 @@ from django.db import models
 from django.urls import reverse
 from django.db.models.deletion import CASCADE
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template.defaultfilters import slugify
+from froala_editor.fields import FroalaField
+from PIL import Image
 
 # Create your models here.
+
+class MyAccountManager(BaseUserManager):
+    #creating a normal user 
+    def create_user(self, first_name, last_name, username, email, password=None):
+        if not email:
+            raise ValueError('User must have an email address')
+
+        if not username:
+            raise ValueError('User must have an username')
+
+        user = self.model(
+            email = self.normalize_email(email),
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    #creating a superuser
+    def create_superuser (self, first_name, last_name, email, username, password):
+        user = self.create_user(
+            email = self.normalize_email(email),
+            username= username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+        )
+        user.is_admin = True
+        user.is_active = True 
+        user.is_staff = True
+        user.is_superadmin = True
+        user.save(using=self._db)
+        return user
+class Account(AbstractBaseUser):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
+    phone_number = models.CharField(max_length=50)
+
+    #required, these are mandatory when creating a custom user model
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+    is_superadmin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    # REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    objects = MyAccountManager()
+
+    def __str__(self):
+        return self.first_name+ ' ' +self.last_name
+
+    #must be added when creating a custom user model
+    def has_perm(self, perm, obj=None):
+        return self.is_admin #basically if he person is an admin he has a the permission
+
+    def has_module_perms(self, add_label):
+        return True #this should always return true
+
+# Signal to make user is_active on registration
+@receiver(post_save, sender=Account)
+def default_to_non_active(sender, instance, created, **kwargs):
+    if created:
+        instance.is_active = True
+        instance.save()
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name="profile", null=True)
+    image = models.ImageField(default='default.png', upload_to='images/profile_images/', null=True, blank=True)
+
+    def __str__(self):
+        name = self.user.first_name+ ' '+self.user.last_name
+        return f'{name} profile'
 
 class Category(models.Model):
     category_name = models.CharField(max_length=100, null=True, blank=True)
@@ -17,29 +104,47 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+class Comment(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    email = models.CharField(max_length=300, null=True, blank=True)
+    content = models.TextField(null=True, blank=True)
+    # post = models.ForeignKey('Post', related_name='comment', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return self.name
+
 class Post(models.Model):
     STATUS = (
-        'published', 'PUBLISHED',
-        'draft', 'DRAFT',
+        ('published', 'PUBLISHED'),
+        ('draft', 'DRAFT')
     )
     title = models.CharField(max_length=255, null=True)
-    slug = models.SlugField()
-    author = models.ForeignKey()
-    body = models.TextField(null=True, blank=True)
-    blog_image = models.ImageField(upload_to='images/blog/' ,null=True, blank=True)
+    slug = models.SlugField(max_length=255 ,null=True, unique=True)
+    author = models.ForeignKey(Account, on_delete=CASCADE, null=True)
+    # description = models.TextField(null=True, blank=True)
+    content = FroalaField()
+    blog_image = models.ImageField(upload_to='images/blog/', null=True, blank=True)
     categories = models.ForeignKey(Category, null=True, on_delete=CASCADE, blank=True)
-    tags = models.ManyToManyRel(related_name=Tag, null=True, blank=True)
+    comments = models.ManyToManyField(Comment, blank=True)
+    comment_count = models.IntegerField(default=0, null=True)
+    tags = models.ManyToManyField(Tag)
     status = models.CharField(max_length=50, null=True, choices=STATUS, default='published')
-    created_at = models.DateTimeField(auto_now_add=True)
+    featured = models.BooleanField(default=False)
+    published_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("post-detail", args=[self.slug])
+
+    def save(self, *args, **kwargs):  # new
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
+    class Meta:
+        ordering = ('-published_at',)
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        ordering = ['-published']
-
-    def get_absolute_url(self):
-        return reverse("post-detail", kwargs={"sluf": self.slug})
     
     

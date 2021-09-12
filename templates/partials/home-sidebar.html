@@ -1,0 +1,286 @@
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+    <aside class="sidebar">
+        <div class="sidebar-inner">
+            <div class="widget widget-about-me wow fadeInUp">
+                
+                {% if about %}
+                    
+                
+                    
+                <div class="widget-content">
+                    <div class="widget-about-me-profile">
+                        <img src="{{about.image.url}}" alt="...">
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-author-name">
+                            <h3>{{about.name}}</h3>
+                            <span class="author-profession">{{about.title}}</span>
+                        </div>
+                        <div class="widget-author-bio">
+                            <p>
+                                {{about.bio}}
+                            </p>
+                        </div>
+                        <div class="widget-author-social">
+                            <ul class="social-links">
+                                <li><a href="{{about.facebook}}" target="_blank"></a></li>
+                                <li><a href="{{about.twitter}}" target="_blank"></a></li>
+                                <li><a href="{{about.instagram}}" target="_blank"></a></li>
+                                <li><a href="{{about.youtube}}" target="_blank"></a></li>
+                                <li><a href="{{about.snapchat}}" target="_blank"></a></li>
+                            </ul>
+                        </div>
+                        <!-- <div class="widget-author-signature">
+                            <img src="assets/dist/img/post/man/signature-one.jpg" alt="...">
+                        </div> -->
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                <!-- // widget-content -->
+            </div>
+            <!-- // widget -->
+            <div class="widget widget-social-links wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>I'M social</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-social-links">
+                            <ul class="social-links-list">
+                                <li class="facebook-link">
+                                    <a href="{{about.facebook}}" class="clearfix" target="_blank">
+                                        Facebook
+                                        <span class="social-icon">
+                                            <i class="fa fa-facebook"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="twitter-link">
+                                    <a href="{{about.twitter}}" class="clearfix" target="_blank">
+                                        Twitter
+                                        <span class="social-icon">
+                                            <i class="fa fa-twitter"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- <li class="googleplus-link">
+                                    <a href="http://plus.google.com/" class="clearfix"
+                                        target="_blank">
+                                        Google Plus
+                                        <span class="social-icon">
+                                            <i class="fa fa-google-plus"></i>
+                                        </span>
+                                    </a>
+                                </li> -->
+                                <li class="instagram-link">
+                                    <a href="{{about.instagram}}" class="clearfix"
+                                        target="_blank">
+                                        Instagram
+                                        <span class="social-icon">
+                                            <i class="fa fa-instagram"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- <li class="linkedin-link">
+                                    <a href="http://linkedin.com/" class="clearfix" target="_blank">
+                                        Linked In
+                                        <span class="social-icon">
+                                            <i class="fa fa-linkedin"></i>
+                                        </span>
+                                    </a>
+                                </li> -->
+                                <li class="youtube-link">
+                                    <a href="{{about.youtube}}" class="clearfix" target="_blank">
+                                        Youtube
+                                        <span class="social-icon">
+                                            <i class="fa fa-youtube"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                <!-- // widget-content -->
+            </div>
+            {% else %}
+
+            {% endif %}
+            <!-- // widget -->
+            
+            
+            <div class="widget widget-recent-posts wow fadeInUp">
+                {% if latest %}
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Recent posts</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-recent-posts">
+                            <div class="widget-rpag-gallery-container">
+                                <div class="swiper-wrapper">
+                                    
+                                    {% for new_post in lastest %}
+                            
+                                    <div class="swiper-slide">
+                                        <img src="{{new_post.blog_image.url}}" alt="..." height="200">
+                                        <div class="mask"></div>
+                                        <div class="slide-content">
+                                            <div class="post-title">
+                                                <h5><a href="#">{{new_post.title}}</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                            <!-- // widget-rpag-gallery-container -->
+                        </div>
+                        <!--// widget-recent-posts -->
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                {% else %}
+                {% endif %}
+                <!-- // widget-content -->
+            </div>
+            <!-- // widget widget-newsletter -->
+            
+            <!-- <div class="widget widget-popular-post wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Popular Posts</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-posts">
+                            <div class="post-thumb">
+                                <img src="assets/dist/img/thumb/one.jpg" alt=".....">
+                            </div>
+                            <div class="post-title">
+                                <h5><a href="#">That Evening At Bali Beach Was Wounderful Then Any
+                                        Other Mornings</a></h5>
+                            </div>
+                            <div class="post-view-count post-meta">
+                                <p>1277 <span>Views</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="widget-posts">
+                            <div class="post-thumb">
+                                <img src="assets/dist/img/thumb/five.jpg" alt=".....">
+                            </div>
+                            <div class="post-title">
+                                <h5><a href="#">5 Reasons Why Ladies Prefer To Have Brown Hair And
+                                        Black Dress</a></h5>
+                            </div>
+                            <div class="post-view-count post-meta">
+                                <p>865 <span>Views</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="widget-posts">
+                            <div class="post-thumb">
+                                <img src="assets/dist/img/thumb/four.jpg" alt=".....">
+                            </div>
+                            <div class="post-title">
+                                <h5><a href="#">This post has just gone viral with many views</a>
+                                </h5>
+                            </div>
+                            <div class="post-view-count post-meta">
+                                <p>721 <span>Views</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="widget-posts">
+                            <div class="post-thumb">
+                                <img src="assets/dist/img/thumb/two.jpg" alt=".....">
+                            </div>
+                            <div class="post-title">
+                                <h5><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                        elit</a></h5>
+                            </div>
+                            <div class="post-view-count post-meta">
+                                <p>234 <span>Views</span></p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                
+            </div> -->
+          
+            <!-- // widget widget-category -->
+            <div class="widget widget-category wow fadeInUp">
+                
+                {% if categories %}
+                    
+                
+                    
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Category</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <ul class="widget-category-listings">
+                            
+                            {% for category in categories %}
+                            <li><a href="#">{{category.category_name}}</a></li>
+                                
+                            {% endfor %}
+                                
+                            
+                        </ul>
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                {% else %}
+                
+                {% endif %}
+                <!-- // widget-content -->
+            </div>
+            <!-- // widget widget-category -->
+            
+            <!-- // widget -->
+            <div class="widget widget-newsletter wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Newsletter</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-newsletter-content">
+                            <p>Subscribe to newsletter to be updated with all the latest trends and
+                                products.</p>
+                            <form action="." method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="email" name="email"
+                                        placeholder="Email Address ..." class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" name="submit"
+                                        class="layout-one-btn">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        
+                       
+                            
+
+                        <!--// widget-newsletter-content -->
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                <!-- // widget-content -->
+            </div>
+            <!-- // widget widget-newsletter -->
+
+        </div>
+        <!-- // sidebar-inner -->
+    </aside>
+    <!-- // sidebar -->
+</div>

@@ -1,0 +1,73 @@
+{% extends 'admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="col-12">
+    <div class="white_card position-relative mb_20">
+        <div class="card-body">
+            
+            {% include 'partials/messages.html' %}
+                
+            <div class="row">
+                
+                <div class="col-lg-6 align-self-center"><img src="{{request.user.profile.image.url}}" alt="{{request.user}}" class="mx-auto d-block rounded" ></div>
+                <!-- {% if profile.profile_picture %}
+                {% else %}
+                <div class="col-lg-6 align-self-center">
+                    <img src="{% static 'img/placeholder.png' %}" alt="{{request.user}}" class="mx-auto d-block rounded-circle" height="250" width="400" >
+                </div>
+                {% endif %} -->
+                    
+                <!--end col-->
+                <div class="col-lg-6 align-self-center">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- {{form|crispy}} -->
+                        {{u_form|crispy}}
+                        {{p_form|crispy}}
+                        
+                        
+                        <input type="submit" class="btn btn-primary" value="Update">
+                    </form>
+                    <!-- <div class="single-pro-detail">
+                        <p class="mb-1">Dastyle</p>
+                        <div class="custom-border mb-3"></div>
+                        <h3 class="pro-title">Dastyle Morden Table Camera</h3>
+                        <p class="text-muted mb-0">Morden and good look model 2020</p>
+                        <ul class="list-inline mb-2 product-review">
+                            <li class="list-inline-item"><i class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item"><i class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item"><i class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item"><i class="fas fa-star text-warning"></i></li>
+                            <li class="list-inline-item"><i class="fas fa-star-half text-warning"></i></li>
+                            <li class="list-inline-item">4.5 (9830 reviews)</li>
+                        </ul>
+                        <h2 class="pro-price">
+                            $89.00 <span><del>$180.00</del></span><span class="text-danger font-weight-bold ml-2">50% Off</span>
+                        </h2>
+                        <h6 class="text-muted font_s_13 mt-2 mb-1">Features :</h6>
+                        <ul class="list-unstyled pro-features border-0">
+                            <li>It is a long established fact that a reader will be distracted.</li>
+                            <li>Contrary to popular belief, Lorem Ipsum is not text.</li>
+                        </ul>
+                        <h6 class="text-muted font_s_13 d-inline-block align-middle mr-2">Color :</h6>
+                        <div class="radio2 radio-info2 form-check-inline ml-2"><input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked=""> <label for="inlineRadio1"></label></div>
+                        <div class="radio2 radio-dark2 form-check-inline"><input type="radio" id="inlineRadio2" value="option2" name="radioInline"> <label for="inlineRadio2"></label></div>
+                        <div class="quantity mt-3">
+                            <input class="form-control form-control-sm" type="number" min="0" value="0" id="example-number-input">
+                            <a href="#" class="btn theme_bg_6 text-white px-4 d-inline-block "><i class="fa fa-cart-plus mr-2"></i>Add to Cart</a>
+                        </div>
+                    </div> -->
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end card-body-->
+    </div>
+    <!--end card-->
+</div>
+    
+{% endblock content %}
+    

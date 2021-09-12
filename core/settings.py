@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-l9ev*%@gwjnp=hx&gbynm#rzrrba!*3n5a&&wp@m2je(yyl#kq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -37,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'froala_editor',
+    
     'blog.apps.BlogConfig',
+    'marketing.apps.MarketingConfig',
+    'aboutme.apps.AboutmeConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,11 +125,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+if DEBUG:
 
+  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATIC_ROOT = os.path.join(BASE_DIR , 'staticfiles')
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
+# MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+# MEDIA_ROOT = BASE_DIR / 'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'blog.Account'
