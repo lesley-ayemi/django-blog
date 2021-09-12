@@ -15,7 +15,15 @@
                             <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 opti-cancellfloat">
                                 <article class="post-details-holder layout-three-post-details-holder wow fadeInUp">
                                     <div class="post-image">
+                                        
+                                        {% if post.blog_image %}
                                         <img src="{{post.blog_image.url}}" height="200" alt="....">
+                                        {% else %}
+                                        <img src="#" height="200" alt="....">
+                                        
+                                            
+                                        {% endif %}
+                                            
                                     </div>
                                     <!-- // post image -->
 
