@@ -2,7 +2,7 @@ from django import forms
 # from tinymce import TinyMCE
 from froala_editor.widgets import FroalaEditor
 from django.forms import fields, widgets
-from .models import Account, Comment, Post, Profile
+from .models import Account, Category, Comment, Post, Profile
 
 class addPostForm(forms.ModelForm):
     content = forms.CharField(widget=FroalaEditor)
@@ -11,10 +11,16 @@ class addPostForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['author', 'slug', 'comment_count', 'comments']
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'content')
+        fields = ['name', 'email', 'content', 'active']
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('category_name',)
         
 class RegisterForm(forms.ModelForm):
 
@@ -33,11 +39,6 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['name', 'email', 'content']
 
 class ProfileForm(forms.ModelForm):
     class Meta:

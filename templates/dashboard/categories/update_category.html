@@ -1,0 +1,38 @@
+{% extends 'admin.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% for error in form.errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <strong>category cannot be left empty</strong>
+    </div>
+{% endfor %}
+
+<div class="box_right d-flex lms_block col-12">
+    <div class="serach_field_2">
+        <div class="search_inner">
+            <form active="" action="." method="POST">
+                {% csrf_token %}
+                <div class="search_field">
+                    <input type="text" name="category_name" value="{{form.category_name.value}}" placeholder="Add new category here...">
+                </div>
+                <button type="submit"> <i class="ti-search"></i> </button>
+                
+        </div>
+    </div>
+    <div class="add_button ml-10">
+       
+        <input type="submit" class="btn_1" value="Update">
+    </div>
+</form>
+</div>
+<!-- {{form.errors}} -->
+    
+
+    
+{% endblock content %}
+    

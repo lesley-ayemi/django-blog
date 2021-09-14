@@ -226,9 +226,9 @@
                     </div>
                     <div class="widget-extra-info-holder">
                         <ul class="widget-category-listings">
-                            
+                            <!-- count number of posts availble to a category -->
                             {% for category in categories %}
-                            <li><a href="#">{{category.category_name}}</a></li>
+                            <li><a href="#">{{category.category_name}} <span class="float-right">({{category.posts_count}})</span> </a></li>
                                 
                             {% endfor %}
                                 

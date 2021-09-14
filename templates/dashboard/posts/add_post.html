@@ -13,8 +13,6 @@
             </div>
         </div>
         <div class="white_card_body">
-
-            
             <!-- <h6 class="card-subtitle mb-2"></h6> -->
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -22,7 +20,15 @@
                 {{form|crispy}}
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-        
+            {% for error in form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong>Field cannot be left empty</strong>
+            </div>
+        {% endfor %}
         
         </div>
     </div>

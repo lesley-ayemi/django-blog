@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponse
 from django.urls.base import reverse_lazy
-from blog.forms import CommentForm, ProfileForm, RegisterForm, UserUpdateForm, addPostForm
+from blog.forms import CategoryForm, CommentForm, ProfileForm, RegisterForm, UserUpdateForm, addPostForm
 from blog.models import Category, Comment, Post, Tag
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -14,7 +14,8 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.messages.views import SuccessMessageMixin
-
+from django.db.models import Count
+import time
 class SuccessMessageMixin:
     """
     Add a success message on successful form submission.
@@ -78,7 +79,10 @@ def home(request):
         posts = Post.objects.all()
         featured = Post.objects.filter(featured=True)[0:4]
         lastest = Post.objects.order_by('-published_at')[0:3]
-        categories = Category.objects.all()
+        # categories = Category.objects.all()
+        categories = Category.objects.all().annotate(posts_count=Count('post'))
+        for category in categories:
+            print(category.posts_count)
         about = Biography.objects.get()
         comment = Comment.objects.filter(active=True)
         # Pagination
@@ -110,6 +114,7 @@ def all_articles(request):
     posts = Post.objects.all().filter(status='published')
     lastest = Post.objects.order_by('-published_at')[0:3]
     categories = Category.objects.all()
+    catego = Category.objects.filter(category_name=posts).count()
     about = Biography.objects.get()
     # Pagination
     paginator = Paginator(posts, 12)
@@ -123,7 +128,7 @@ def all_articles(request):
         paginated_queryset = paginator.page(paginator.num_pages)
 
     context = {'posts':paginated_queryset, 'lastest':lastest, 'categories':categories, 'about':about, 'page':page,
-            'page_request_var':page_request_var,}
+            'page_request_var':page_request_var, 'catego':catego}
     return render(request, 'blog/all_posts.html', context)
 
 
@@ -148,6 +153,9 @@ def search_article(request):
 
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
+    post.post_views = post.post_views + 1
+    post.save()
+    # time.sleep(3) #not recommend
     categories = Category.objects.all()
     about = Biography.objects.get()
     comments = Comment.objects.filter(post=post)
@@ -170,6 +178,7 @@ def post_detail(request, slug):
         'about':about,
         'comments':comments,
         'comment_form':comment_form,
+        'post.post_views':post.post_views,
         # 'profile':profile,
     }
     return render(request, 'blog/post_detail.html', context)
@@ -194,7 +203,8 @@ def dashboard(request):
 
 @login_required(login_url='login')
 def show_post(request):
-    user_post = Post.objects.filter(author=request.user).order_by('-updated_at')
+    # user_post = Post.objects.filter(author=request.user)
+    user_post = Post.objects.all().order_by('-published_at')
     context = {
         'user_post':user_post,
         # 'posts':posts,
@@ -203,7 +213,7 @@ def show_post(request):
 
 @login_required(login_url='login')
 def add_post(request):
-    if request.method == 'POST' and request.FILES['blog_image']:
+    if request.method == 'POST':
         form = addPostForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             post = form.save(commit=False)
@@ -248,6 +258,61 @@ def delete_post(request, slug):
         return redirect('show-post')
     else:
         return redirect('show-post')
+
+@login_required(login_url='login')
+def categories(request):
+    categories = Category.objects.all()
+    form = CategoryForm,
+    if request.method == 'POST':
+        form = CategoryForm(request.POST or None)
+        if form.is_valid():
+            # form.clean()
+            form.save()
+            messages.success(request, 'Category updated successfully')
+            return redirect('categories')
+            # category_name = form.clean()
+        else:
+            messages.warning(request, 'Field cannot be empty')
+            return redirect('categories')
+            # print(form)
+
+    return render(request, 'dashboard/categories/index.html', {'categories':categories, 'form':form})
+
+@login_required(login_url='login')
+def update_categories(request, id):
+    category = get_object_or_404(Category, id=id)
+    form = CategoryForm(request.POST or None, instance=category)
+    if form.is_valid():
+        form.save()
+        # form.save()
+        messages.success(request, 'Category updated')
+        return redirect('categories')
+    return render(request, 'dashboard/categories/update_category.html', {'form':form})
+
+def delete_categories(request, id):
+    category = get_object_or_404(Category, id=id)
+    category.delete()
+    messages.success(request, 'Category deleted successfully')
+    return redirect('categories')
+
+def all_comments(request):
+    comments = Comment.objects.all().order_by('timestamp')
+    return render(request, 'dashboard/comments/index.html', {'comments':comments})
+
+def update_comments(request, id):
+    comments = get_object_or_404(Comment, id=id)
+    form = CommentForm(request.POST or None, instance=comments)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Comment Updated')
+        return redirect('comments')
+    return render(request, 'dashboard/comments/update_comment.html', {'form':form})
+
+def delete_comments(request, id):
+    comment = get_object_or_404(Comment, id=id)
+    comment.delete()
+    messages.warning(request, 'Comment delete successfully')
+    return redirect('comments')
 
 @login_required(login_url='login')
 def profile(request):

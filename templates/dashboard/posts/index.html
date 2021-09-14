@@ -50,7 +50,10 @@
                             <tr role="row">
                                 <th scope="col" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_1"
                                     rowspan="1" colspan="1" style="width: 93px;" aria-sort="ascending"
-                                    aria-label="title: activate to sort column descending">title</th>
+                                    aria-label="title: activate to sort column descending">#</th>
+                                <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
+                                    rowspan="1" colspan="1" style="width: 123px;"
+                                    aria-label="Category: activate to sort column ascending">Title</th>
                                 <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_1"
                                     rowspan="1" colspan="1" style="width: 123px;"
                                     aria-label="Category: activate to sort column ascending">Category</th>
@@ -83,9 +86,12 @@
                                 
                             <tr role="row" class="odd">
                                 <th scope="row" tabindex="0" class="sorting_1"> <a href="#" class="question_content">
-                                {{post.title|truncatewords:4}}</a></th>
+                                {{post.id}}</a></th>
+                                <!-- <th scope="row" tabindex="0" class="sorting_1"> <a href="#" class="question_content">
+                                </a></th> -->
+                                <td>{{post.title|truncatewords:4}}</td>
                                 <td>{{post.categories}}</td>
-                                <td>{{post.comment_count}}</td>
+                                <td>{{post.comments.count}}</td>
                                 <td>{{post.author}}</td>
                                 <!-- <td>16</td>
                                 <td>$25.00</td> -->

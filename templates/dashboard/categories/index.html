@@ -1,0 +1,105 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="white_card card_height_100 mb_30 pt-4">
+            <div class="white_card_body">
+                <div class="QA_section">
+                    <div class="white_box_tittle list_header">
+                        <h4>Category List </h4>
+                        <div class="box_right d-flex lms_block">
+                            <div class="serach_field_2">
+                                <div class="search_inner">
+                                    <form active="" action="{% url 'categories'%}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="search_field">
+                                            <input type="text" name="category_name" placeholder="Add new category here...">
+                                        </div>
+                                        <button type="submit"> <i class="ti-cloud-up"></i> </button>
+                                    
+                                </div>
+                            </div>
+                            <div class="add_button ml-10">
+                                <!-- <a href="" type="button" data-toggle="modal" data-target="#addcategory" class="btn_1">search</a> -->
+                                <input type="submit" class="btn_1" value="Add Category">
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+
+                        {% include 'partials/messages.html' %}
+                        {{form.errors}}
+                    </div>
+
+                    <div class="QA_table mb_30">
+                        <!-- table-responsive -->
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                            <table class="table lms_table_active dataTable no-footer dtr-inline" id="DataTables_Table_0"
+                                role="grid" aria-describedby="DataTables_Table_0_info" style="width: 878px;">
+                                <thead>
+                                    <tr role="row">
+                                        <th scope="col" class="sorting_asc" tabindex="0"
+                                            aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                                            style="width: 29px;" aria-sort="ascending"
+                                            aria-label="id: activate to sort column descending">id</th>
+                                        <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 73px;"
+                                            aria-label="User: activate to sort column ascending">Name</th>
+                                        <!-- <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 96px;"
+                                            aria-label="Username: activate to sort column ascending">Username</th>
+                                        <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 174px;"
+                                            aria-label="Email Address: activate to sort column ascending">Email Address
+                                        </th>
+                                        <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 62px;"
+                                            aria-label="Role: activate to sort column ascending">Role</th>
+                                        <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 114px;"
+                                            aria-label="Status: activate to sort column ascending">Status</th> -->
+                                        <th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                            rowspan="1" colspan="1" style="width: 118px;"
+                                            aria-label="Action: activate to sort column ascending">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% if categories %}
+                                    
+                                    {% for category in categories %}
+                                        
+                                    <tr role="row" class="odd">
+                                        <th scope="row" tabindex="0" class="sorting_1"> <a href="#"
+                                                class="question_content"> {{category.id}} </a></th>
+                                        <td>{{category.category_name}}</td>
+                                        <!-- <td>Hayden</td>
+                                        <td>work409@gmail.com</td>
+                                        <td><a href="#">Admin</a></td>
+                                        <td><a href="#" class="status_btn">Active</a></td> -->
+                                        <td>
+                                            <div class="action_btns d-flex">
+                                                <a href="{% url 'update-categories' category.id %}" class="action_btn mr_10"> <i class="far fa-edit"></i> </a>
+                                                <a href="{% url 'delete-categories' category.id %}" class="action_btn"> <i class="fas fa-trash"></i> </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <h4 class="text-center text-secondary">No availble categories yet</h4>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import PasswordsChangeView, all_articles
+from .views import PasswordsChangeView, all_articles, categories
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -11,6 +11,12 @@ urlpatterns = [
     path('dashboard/posts/add-post/', views.add_post, name='add-post'),
     path('dashboard/posts/update-post/<slug>/', views.update_post, name='update-post'),
     path('dashboard/posts/delete-post/<slug>/', views.delete_post, name='delete-post'),
+    path('dashboard/categories/', views.categories, name='categories'),
+    path('dashboard/categories/<id>/', views.update_categories, name='update-categories'),
+    path('dashboard/categories/delete/<id>/', views.delete_categories, name='delete-categories'),
+    path('dashboard/comments/', views.all_comments, name='comments'),
+    path('dashboard/comments/<id>/', views.update_comments, name='update-comments'),
+    path('dashboard/comments/delete/<id>/', views.delete_comments, name='delete-comments'),
     path('dashboard/profile/', views.profile, name='profile'),
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),

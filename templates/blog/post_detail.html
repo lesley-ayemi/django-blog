@@ -75,9 +75,9 @@
 
                         </div>
                         <!-- // post-the-content  -->
-                        <div class="post-share">
+                        <!-- <div class="post-share">
                             <div class="share"></div>
-                        </div>
+                        </div> -->
                         <div class="tags-meta-and-others clearfix">
                             <div class="post-tags">
 
@@ -89,7 +89,7 @@
                                 <!-- <span><a href="#">Trending</a></span> -->
                             </div>
                             <div class="view-count">
-                                <span class="display-view-count"><i class="fa fa-eye" aria-hidden="true"></i> 568
+                                <span class="display-view-count"><i class="fa fa-eye" aria-hidden="true"></i> {{post.post_views}}
                                     Views</span>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
 
                             </article>
                             {% endfor %}
-
+                            
                                 <!-- <h4>{{post.comments.all.count}} Comments Found</h4>
                             </div>
                             
@@ -228,7 +228,7 @@
                                     <div class="comments__form-field">
                                         <input id="comments__form-label-name" name="name"
                                             placeholder="Name" type="text"
-                                            class="comments__form-input">
+                                            class="comments__form-input" required>
                                         <label class="comments__form-label"
                                             for="comments__form-label-name">
                                             <span class="comments__form-label-text">Name</span>
@@ -237,7 +237,7 @@
                                     <div class="comments__form-field">
                                         <input id="comments__form-label-mail" name="email"
                                             placeholder="E-mail" type="text"
-                                            class="comments__form-input">
+                                            class="comments__form-input" required>
                                         <label class="comments__form-label"
                                             for="comments__form-label-mail">
                                             <span class="comments__form-label-text">E-mail</span>
@@ -248,7 +248,7 @@
                                     <div class="comments__form-field">
                                         <textarea id="comments__form-label-text" name="content"
                                             placeholder="Express your thoughts" type="text"
-                                            class="comments__form-input comments__form-textarea"></textarea>
+                                            class="comments__form-input comments__form-textarea" required></textarea>
                                         <label class="comments__form-label"
                                             for="comments__form-label-text">
                                             <span class="comments__form-label-text">Express your
@@ -259,6 +259,7 @@
                                 <input name="submit" type="submit" id="submit"
                                     class="comments__form-submit" value="Post Comment">
                             </form>
+                            {{form.errors}}
                         </div>
                         
                     </div>
