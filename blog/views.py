@@ -153,8 +153,13 @@ def search_article(request):
 
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
-    post.post_views = post.post_views + 1
-    post.save()
+    session_key = 'post_views_{}'.format(post.slug)
+    if not request.session.get(session_key):
+        post.post_views += 1  # here
+        post.save()
+        request.session[session_key] = True
+    # post.post_views = post.post_views + 1
+    # post.save()
     # time.sleep(3) #not recommend
     categories = Category.objects.all()
     about = Biography.objects.get()
@@ -178,7 +183,7 @@ def post_detail(request, slug):
         'about':about,
         'comments':comments,
         'comment_form':comment_form,
-        'post.post_views':post.post_views,
+        # 'post.post_views':post.post_views,
         # 'profile':profile,
     }
     return render(request, 'blog/post_detail.html', context)
