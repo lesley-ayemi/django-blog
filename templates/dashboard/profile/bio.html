@@ -1,0 +1,48 @@
+{% extends 'admin.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-12">
+    <div class="white_card card_height_100 mb_30">
+        <div class="white_card_header">
+            <div class="box_header m-0">
+                <div class="main-title">
+                    <h3 class="m-0">Biography</h3>
+                </div>
+            </div>
+        </div>
+        <div class="white_card_body">
+            <div class="QA_section">
+
+                {% include 'partials/messages.html' %}
+
+                <div class="QA_table mb_30">
+                    <div class="row">
+                        <div class="col-lg-12 container profile_info">
+                            
+                            {% if about.image %}
+                            <img src="{{about.image.url}}" class="mx-auto d-block" alt="">
+                            {% else %}
+                                
+                            {% endif %}
+                                
+                        </div>
+                        <!-- <div class="col-lg-4 align-self-center"><img src="{{about.image.url}}" height="200" alt="{{about.name}}" class="mx-auto d-block rounded" ></div> -->
+
+                        <div class="col-lg-12 align-self-center">
+                            <form action="." method="POST">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                                <input type="submit" class="btn btn-primary" value="Update">
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

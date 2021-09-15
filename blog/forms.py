@@ -9,7 +9,7 @@ class addPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
-        exclude = ['author', 'slug', 'comment_count', 'comments']
+        exclude = ['author', 'slug', 'post_views']
 
 
 class CommentForm(forms.ModelForm):

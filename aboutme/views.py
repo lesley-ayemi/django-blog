@@ -1,3 +1,4 @@
+from aboutme.forms import BioForm
 from django.shortcuts import redirect, render
 from .models import Biography
 # Create your views here.
@@ -7,3 +8,7 @@ from .models import Biography
 #         'about':about
 #     }
 #     return render(request,'blog/main.html', context)
+
+# def Biography(request):
+#     form = BioForm()
+#     return render(request, 'dashboard/profile/bio.html', {'form':form})

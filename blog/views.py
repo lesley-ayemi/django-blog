@@ -16,6 +16,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count
 import time
+from aboutme.forms import BioForm
 class SuccessMessageMixin:
     """
     Add a success message on successful form submission.
@@ -210,8 +211,10 @@ def dashboard(request):
 def show_post(request):
     # user_post = Post.objects.filter(author=request.user)
     user_post = Post.objects.all().order_by('-published_at')
+    comments = Comment.objects.all()
     context = {
         'user_post':user_post,
+        'comments':comments,
         # 'posts':posts,
     }
     return render(request, 'dashboard/posts/index.html', context)
@@ -348,6 +351,19 @@ def profile(request):
     #     return redirect('profile')
     # context = {'form':form, 'profile':profile}
     return render(request, 'dashboard/profile/index.html', context)
+
+def biography(request):
+    if request.method == 'POST':
+        about = Biography.objects.get() 
+        form = BioForm(request.POST, instance=about)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Bio Updated')
+            return redirect('biography')
+    else:
+        about = Biography.objects.get() 
+        form = BioForm(instance=about)
+    return render(request, 'dashboard/profile/bio.html', {'form':form, 'about':about})
 
 class PasswordsChangeView(SuccessMessageMixin, PasswordChangeView):
     from_class = PasswordChangeForm

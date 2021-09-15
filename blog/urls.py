@@ -18,6 +18,7 @@ urlpatterns = [
     path('dashboard/comments/<id>/', views.update_comments, name='update-comments'),
     path('dashboard/comments/delete/<id>/', views.delete_comments, name='delete-comments'),
     path('dashboard/profile/', views.profile, name='profile'),
+    path('dashboard/biography/', views.biography, name='biography'),
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
