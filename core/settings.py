@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'marketing.apps.MarketingConfig',
     'aboutme.apps.AboutmeConfig',
     'crispy_forms',
+     'avatar',
 ]
 
 MIDDLEWARE = [

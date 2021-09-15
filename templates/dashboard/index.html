@@ -1,6 +1,6 @@
 {% extends 'admin.html' %}
 {% load static %}
-
+{% load avatar_tags %}
 {% block content %}
 
 <div class="row">
@@ -166,9 +166,17 @@
                             <tr>
                                 <td>
                                     <div class="customer d-flex align-items-center">
-                                        <div class="thumb_34 mr_15 mt-0"><img
-                                                class="img-fluid radius_50"
-                                                src="{{post_obj.blog_image.url}}" alt=""></div>
+                                        <div class="thumb_34 mr_15 mt-0">
+                                            
+                                            {% if post_obj.blog_image %}
+                                            <img class="img-fluid radius_50" src="{{post_obj.blog_image.url}}" alt="">
+                                            {% else %}
+                                            <!-- <img class="img-fluid radius_50" src="{% avatar user %}" alt=""> -->
+                                            {% avatar user class="img-fluid radius_50" %}
+                                                
+                                            {% endif %}
+                                                
+                                        </div>
                                         <span class="f_s_12 f_w_600 color_text_5">{{post_obj.title|truncatewords:2}}</span>
                                     </div>
 

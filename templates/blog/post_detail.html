@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load avatar_tags %}
 {% block content-bg %}
 
 <div class="general-single-page-layout single-page-layout-one">
@@ -174,8 +175,11 @@
                             
                                 
                             <article class="review-box clearfix">
-                                <figure class="rev-thumb"><img src="/static/assets/dist/img/profiles/1.jpg"
-                                        alt=""></figure>
+                                <figure class="rev-thumb">
+                                    <!-- <img src="/static/assets/dist/img/profiles/1.jpg" alt=""> -->
+                                    {% avatar user %}
+                                    <a href="{% url 'avatar_change'%}">Change</a>
+                                    </figure>
                                 <div class="rev-content">
                                     <div class="rev-info"><strong>{{comment.name}} – {{comment.timestamp}}:
                                         </strong></div>

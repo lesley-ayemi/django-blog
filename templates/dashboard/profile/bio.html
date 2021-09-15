@@ -29,11 +29,19 @@
                         <!-- <div class="col-lg-4 align-self-center"><img src="{{about.image.url}}" height="200" alt="{{about.name}}" class="mx-auto d-block rounded" ></div> -->
 
                         <div class="col-lg-12 align-self-center">
+                            
+                            {% if form %}
+                                
+                            
+                                
                             <form action="." method="POST">
                                 {% csrf_token %}
                                 {{form|crispy}}
                                 <input type="submit" class="btn btn-primary" value="Update">
                             </form>
+                            {% else %}
+                            <h2>jo</h2>
+                            {% endif %}
                         </div>
                     </div>
                     

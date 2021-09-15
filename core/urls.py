@@ -30,6 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('froala_editor/', include('froala_editor.urls')),
+    url('avatar/', include('avatar.urls')),
 ] 
 if settings.DEBUG:
         urlpatterns += static(settings.MEDIA_URL,

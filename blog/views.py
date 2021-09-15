@@ -82,8 +82,8 @@ def home(request):
         lastest = Post.objects.order_by('-published_at')[0:3]
         # categories = Category.objects.all()
         categories = Category.objects.all().annotate(posts_count=Count('post'))
-        for category in categories:
-            print(category.posts_count)
+        # for category in categories:
+        #     print(category.posts_count)
         about = Biography.objects.get()
         comment = Comment.objects.filter(active=True)
         # Pagination
@@ -162,7 +162,8 @@ def post_detail(request, slug):
     # post.post_views = post.post_views + 1
     # post.save()
     # time.sleep(3) #not recommend
-    categories = Category.objects.all()
+    # categories = Category.objects.all()
+    categories = Category.objects.all().annotate(posts_count=Count('post'))
     about = Biography.objects.get()
     comments = Comment.objects.filter(post=post)
     tags = Tag.objects.all()
@@ -193,8 +194,10 @@ def post_detail(request, slug):
     """Users Controllers"""
 @login_required(login_url='login')
 def dashboard(request):
-    post = Post.objects.filter(author=request.user)
+    # post = Post.objects.filter(author=request.user)
+    post = Post.objects.all()
     latest = Post.objects.filter(author=request.user)[:3]
+    latest = Post.objects.all().order_by('-published_at')[:3]
     published = post.filter(status='published')
     draft = post.filter(status='draft')
     # post_obj = Post.objects.filter('-published_at')[0:5]
