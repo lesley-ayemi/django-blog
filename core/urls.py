@@ -32,12 +32,13 @@ urlpatterns = [
     path('froala_editor/', include('froala_editor.urls')),
     url('avatar/', include('avatar.urls')),
 ] 
-if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL,  document_root = settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#         urlpatterns += static(settings.MEDIA_URL,
+#                               document_root=settings.MEDIA_ROOT)
 
 
-urlpatterns += staticfiles_urlpatterns()
+# urlpatterns += staticfiles_urlpatterns()
 
 handler404 = "helpers.views.page_not_found"
 handler500 = "helpers.views.page_server_error"
