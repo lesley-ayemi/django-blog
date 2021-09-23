@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.template.defaultfilters import default, slugify
 from froala_editor.fields import FroalaField
 from PIL import Image
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -121,7 +122,7 @@ class Post(models.Model):
     categories = models.ForeignKey(Category, null=True, on_delete=CASCADE, blank=True)
     # comments = models.ManyToManyField(Comment, blank=True)
     # comment_count = models.IntegerField(default=0, null=True)
-    tags = models.ManyToManyField(Tag)
+    tag = TaggableManager()
     status = models.CharField(max_length=50, null=True, choices=STATUS, default='published')
     featured = models.BooleanField(default=False)
     post_views = models.IntegerField(default=0, null=True, blank=True)

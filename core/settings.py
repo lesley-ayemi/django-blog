@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'aboutme.apps.AboutmeConfig',
     'crispy_forms',
     'avatar',
+    'taggit',
 ]
 
 MIDDLEWARE = [

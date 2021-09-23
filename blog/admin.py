@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'status', 'published_at']
     prepopulated_fields = {"slug":("title",)}
-    list_filter = ['categories', 'tags', 'status']
+    list_filter = ['categories', 'tag', 'status']
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
 admin.site.register(Tag)
