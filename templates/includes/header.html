@@ -37,7 +37,7 @@
         <!-- // header-top-wrapper -->
         <div class="container">
             <div class="site-info">
-                <h1 class="site-title">Optimistic blog</h1>
+                <h1 class="site-title">Blesi Diary</h1>
                 <!--  <img src="./assets/dist/img/logo.png" alt="logo"> -->
             </div>
             <!-- // site-info -->
@@ -65,23 +65,24 @@
                         <li><a href="single-page-layout-three.html">Single Page Layout Three</a></li>
                     </ul> -->
                 </li>
-                <li><a href="#">Contact Us</a>
-                    <!-- <ul>
-                        <li>
-                        <li><a href="404.html">404 page</a></li>
-                        <li><a href="#">Single Page</a>
-                            <ul>
-                                <li><a href="single-page-layout-one.html">Single Page Layout One</a></li>
-                                <li><a href="single-page-layout-two.html">Single Page Layout Two + Image</a></li>
-                                <li><a href="single-page-layout-two-video.html">Single Page Layout Two + Video</a>
-                                </li>
-                                <li><a href="single-page-layout-three.html">Single Page Layout Three</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="search.html">Search Page</a></li>
+
+                <li><a href="#">Categories</a>
+                    <ul>
+                        
+                        {% for category in categories %}
+                        <li><a href="{% url 'single_category' category.id%}">{{category.category_name}}</a></li>
+                            
+                        {% endfor %}
+                            
+                        <!-- <li><a href="single-page-layout-two.html">Single Page Layout Two + Image</a></li>
+                        <li><a href="single-page-layout-two-video.html">Single Page Layout Two + Video</a></li>
+                        <li><a href="single-page-layout-three.html">Single Page Layout Three</a></li> -->
+                    </ul>
                 </li>
-                </ul> -->
-                </li>
+                
+                <!-- <li><a href="#">Contact Us</a>
+
+                </li> -->
                 <!-- <li><a href="#">Lifestyle</a></li> -->
                 <!-- <li><a href="#">Health</a></li> -->
                 
@@ -90,7 +91,7 @@
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
+                <!-- <li><a href="{% url 'register' %}">Register</a></li> -->
                     
                 {% endif %}
                     

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="single-inner">
+    <div class="container">
+        <div class="home-layout-three-wrapper">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="main-post-area-holder">
+
+                        <div class="row">
+
+                            {% if posts %}
+                            {% for post in posts %}
+
+                            <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 opti-cancellfloat">
+                                <article class="post-details-holder layout-three-post-details-holder wow fadeInUp">
+                                    <div class="post-image">
+                                        
+                                        {% if post.blog_image %}
+                                        <img src="{{post.blog_image.url}}" height="200" alt="....">
+                                        {% else %}
+                                        <img src="#" height="200" alt="....">
+                                        
+                                            
+                                        {% endif %}
+                                            
+                                    </div>
+                                    <!-- // post image -->
+
+                                    <div class="post-extra-details">
+                                        <div class="post-meta-category">
+                                            <span><a href="#">{{post.categories}}</a></span>
+                                        </div>
+                                        <div class="post-title">
+                                            <h2><a href="{% url 'post-detail' post.slug %}">{{post.title|truncatewords:2}}</a></h2>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <div class="post-author">
+                                                    <img src="{{post.author.profile.image.url}}" height="20" alt="....">
+                                                    <span><a href="#">{{post.author}}</a></span>
+                                                </div>
+                                            </div>
+                                            <!-- // col -->
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <div class="post-meta-views-count">
+                                                    <span><a href="#">{{post.comment_count}}</a></span>
+                                                </div>
+                                            </div>
+                                            <!-- // col -->
+                                        </div>
+                                        <!-- // row -->
+                                    </div><!-- // post extra details -->
+                                </article>
+                                <!-- // article -->
+                            </div>
+                            {% endfor %}
+
+                            <div class="pagination_holder col-lg-12">
+                                <ul class="pagination">
+
+                                    {% if posts.has_previous %}
+                                    <li class=""><a href="?{{page_request_var}}={{posts.previous_page_number}}">«</a>
+                                    </li>
+                                    {% else %}
+                                    <li class="disabled"><a href="#">«</a></li>
+                                    {% endif %}
+
+
+                                    {% for i in posts.paginator.page_range %}
+
+                                    {% if post_number == i %}
+                                    <li class="active"><a href="#">{{i}} <span class="sr-only">(current)</span></a></li>
+                                    {% else %}
+                                    <li class=""><a href="?{{page_request_var}}={{i}}">{{i}} <span
+                                                class="sr-only">(current)</span></a></li>
+
+
+                                    {% endif %}
+
+
+                                    {% endfor %}
+
+
+                                    {% if posts.has_next %}
+                                    <li><a href="?{{page_request_var}}={{posts.next_page_number}}">»</a></li>
+                                    {% endif %}
+
+
+                                </ul>
+
+                            </div>
+                            {% else %}
+                            <h4 class="text-secondary text-center">No Posts</h4>
+                            {% endif %}
+                            <!-- // col -->
+                        </div>
+                        <!-- // row for posts -->
+                    </div>
+                    
+                    <!-- // main-post-area-holder -->
+                </div>
+                {% include 'partials/home-sidebar.html' %}
+
+                <!-- // col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock content %}
+    

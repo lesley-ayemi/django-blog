@@ -114,8 +114,8 @@ def all_articles(request):
 
     posts = Post.objects.all().filter(status='published')
     lastest = Post.objects.order_by('-published_at')[0:3]
-    categories = Category.objects.all()
-    catego = Category.objects.filter(category_name=posts).count()
+    # categories = Category.objects.all()
+    categories = Category.objects.all().annotate(posts_count=Count('post'))
     about = Biography.objects.get()
     # Pagination
     paginator = Paginator(posts, 12)
@@ -129,7 +129,7 @@ def all_articles(request):
         paginated_queryset = paginator.page(paginator.num_pages)
 
     context = {'posts':paginated_queryset, 'lastest':lastest, 'categories':categories, 'about':about, 'page':page,
-            'page_request_var':page_request_var, 'catego':catego}
+            'page_request_var':page_request_var}
     return render(request, 'blog/all_posts.html', context)
 
 
@@ -151,6 +151,11 @@ def search_article(request):
         'about':about,
     }
     return render(request, 'blog/search_result.html', context)
+
+def single_category(request, id):
+    category = get_object_or_404(Category, id=id)
+    posts = Post.objects.filter(categories=category)
+    return render(request, 'blog/single.html', {'posts':posts})
 
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)

@@ -19,7 +19,7 @@
                     <!-- // featured-post-image -->
                     <div class="featured-content-holder">
                         <div class="featured-content-meta">
-                            <a href="#"><span class="category">{{f.categories}}</span></a>
+                            <a href="{% url 'post-detail' f.slug%}"><span class="category">{{f.categories}}</span></a>
                         </div>
                         <div class="featured-content-title">
                             <h2><a href="{{f.get_absolute.url}}">{{f.title}}</a></h2>
