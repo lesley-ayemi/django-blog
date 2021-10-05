@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="general-single-page-layout single-page-layout-two">
+    <div class="single-page-inner">
+
+        <div class="main-post-area-holder">
+            
+            {% if about %}
+                
+            {% for me in about %}
+                
+            <article class="single-page-details-holder">
+                <div class="single-page-layout-two-top-style">
+
+                    <div class="single-post-layout-two-fimage-and-few-meta">
+                        <div class="post-fimage" style="background:url({{me.image.url}})">
+                            <div class="mask"></div>
+                            <div class="container single-page-other-information-holder post-ttl-n-meta">
+                                <div class="posted-category">
+                                    <div class="post-meta-category">
+                                        <span><a href="#">{{me.name}}</a></span>
+                                        <!-- <span><a href="#">Health</a></span>
+                                        <span><a href="#">Art</a></span> -->
+                                    </div>
+                                </div>
+                                <div class="post-title">
+                                    <h2>{{me.title}}</h2>
+                                </div>
+                                <!-- // post-title -->
+                                
+                                <!-- // post-extra-meta -->
+                            </div><!-- // container -->
+                        </div><!-- // post-fimage -->
+                    </div><!-- // single-post-layout-two-fimage-and-few-meta -->
+                    <div class="container single-page-other-information-holder">
+                        <div class="post-the-content">
+                            <p>
+                                {{me.bio}}
+                            </p>
+                            
+                        </div>
+                        <!-- // post-the-content  -->
+                        <div class="widget-social-links">
+                            <ul class="social-links-list">
+                                <li class="facebook-link">
+                                    <a href="{{about.facebook}}" class="clearfix" target="_blank">
+                                        Facebook
+                                        <span class="social-icon">
+                                            <i class="fa fa-facebook"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="twitter-link">
+                                    <a href="{{about.twitter}}" class="clearfix" target="_blank">
+                                        Twitter
+                                        <span class="social-icon">
+                                            <i class="fa fa-twitter"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- <li class="googleplus-link">
+                                    <a href="http://plus.google.com/" class="clearfix"
+                                        target="_blank">
+                                        Google Plus
+                                        <span class="social-icon">
+                                            <i class="fa fa-google-plus"></i>
+                                        </span>
+                                    </a>
+                                </li> -->
+                                <li class="instagram-link">
+                                    <a href="{{about.instagram}}" class="clearfix"
+                                        target="_blank">
+                                        Instagram
+                                        <span class="social-icon">
+                                            <i class="fa fa-instagram"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- <li class="linkedin-link">
+                                    <a href="http://linkedin.com/" class="clearfix" target="_blank">
+                                        Linked In
+                                        <span class="social-icon">
+                                            <i class="fa fa-linkedin"></i>
+                                        </span>
+                                    </a>
+                                </li> -->
+                                <li class="youtube-link">
+                                    <a href="{{about.youtube}}" class="clearfix" target="_blank">
+                                        Youtube
+                                        <span class="social-icon">
+                                            <i class="fa fa-youtube"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- <div class="post-share">
+                            <div class="share"></div>
+                        </div>
+                         -->
+
+                    </div>
+
+
+                </div><!-- // single-page-layout-two-top-style -->
+            </article>
+            {% endfor %}
+
+            {% else %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

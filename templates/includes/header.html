@@ -65,8 +65,11 @@
                         <li><a href="single-page-layout-three.html">Single Page Layout Three</a></li>
                     </ul> -->
                 </li>
+                <li><a href="{% url 'about'%}">About</a>
+                    
+                </li>
 
-                <li><a href="#">Categories</a>
+                <li><a href="javascript:void(0)">Categories</a>
                     <ul>
                         
                         {% for category in categories %}
@@ -78,6 +81,10 @@
                         <li><a href="single-page-layout-two-video.html">Single Page Layout Two + Video</a></li>
                         <li><a href="single-page-layout-three.html">Single Page Layout Three</a></li> -->
                     </ul>
+                </li>
+
+                <li><a href="{% url 'contact'%}">Contact</a>
+                    
                 </li>
                 
                 <!-- <li><a href="#">Contact Us</a>

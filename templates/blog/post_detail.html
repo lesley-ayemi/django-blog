@@ -14,9 +14,9 @@
                 </div>
             </div> -->
             <ul class="breadcrumb-listing container">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">{{post.categories}}</a></li>
-                <li><a href="#">{{post.title}}</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="javascript:void(0) ">{{post.categories}}</a></li>
+                <li><a href="javascript:void(0) ">{{post.title}}</a></li>
             </ul>
             <div class="mask"></div>
         </div>
@@ -33,15 +33,15 @@
             <div class="main-post-area-holder">
                 <article class="single-page-details-holder wow fadeInUp">
                     <div class="post-image">
-                        <img src="assets/dist/img/post-eight.jpg" alt="....">
+                        <img src="static/assets/dist/img/post-eight.jpg" alt="....">
                     </div>
                     <div class="single-page-other-information-holder">
                         <div class="posted-category">
-                            <div class="post-meta-category">
+                            <!-- <div class="post-meta-category">
                                 <span><a href="#">Lifestyle</a></span>
                                 <span><a href="#">Health</a></span>
                                 <span><a href="#">Art</a></span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="post-title">
                             <h2>{{post.title}}</h2>
@@ -83,7 +83,7 @@
                             <div class="post-tags">
 
                                 {% for post_tag in post.tag.all %}
-                                <span><a href="#">{{post_tag}}</a></span>
+                                <span><a href="javascript:void(0) ">{{post_tag}}</a></span>
 
                                 {% endfor %}
 
@@ -97,7 +97,7 @@
                     </div>
                     <!-- // single-page-information-holder -->
                 </article>
-                
+
                 <!-- // slider post should be here -->
 
                 <!-- // related-posts-wrapper -->
@@ -137,20 +137,20 @@
                                 
                             <article class="review-box clearfix">
                                 <figure class="rev-thumb">
-                                    <!-- <img src="/static/assets/dist/img/profiles/1.jpg" alt=""> -->
-                                    {% avatar user %}
-                                    <a href="{% url 'avatar_change'%}">Change</a>
+                                    <img src="/media/default.png" alt="">
+                                    <!-- {% avatar user %} -->
+                                    <!-- <a href="{% url 'avatar_change'%}"></a> -->
                                     </figure>
                                 <div class="rev-content">
-                                    <div class="rev-info"><strong>{{comment.name}} – {{comment.timestamp}}:
+                                    <div class="rev-info"><strong>{{comment.name}} – {{comment.timestamp|date}}:
                                         </strong></div>
                                     <div class="rev-text">
                                         <p>{{comment.content | linebreaks}}</p>
                                     </div>
-                                    <div class="rev-reply">
+                                    <!-- <div class="rev-reply">
                                         <a href="#"><span><i class="fa fa-reply"
                                                     aria-hidden="true"></i> Reply</span></a>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                             </article>

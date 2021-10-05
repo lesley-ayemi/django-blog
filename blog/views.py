@@ -1,22 +1,30 @@
-from django.contrib.auth.views import PasswordChangeView
-from django.db.models.query_utils import Q
-from django.http.response import HttpResponse
-from django.urls.base import reverse_lazy
-from blog.forms import CategoryForm, CommentForm, ProfileForm, RegisterForm, UserUpdateForm, addPostForm
-from blog.models import Category, Comment, Post, Tag
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from marketing.models import SignUp
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib import messages 
+import time
+
+from aboutme.forms import BioForm
 from aboutme.models import Biography
-from django.views import generic
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import BadHeaderError, send_mail
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
-import time
-from aboutme.forms import BioForm
+from django.db.models.query_utils import Q
+from django.http.response import BadHeaderError, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls.base import reverse_lazy
+from django.views import generic
+from marketing.models import SignUp
+
+from blog.forms import (CategoryForm, CommentForm, ContactForm, ProfileForm,
+                        RegisterForm, UserUpdateForm, addPostForm)
+from blog.models import Category, Comment, Post, Tag
+
+
 class SuccessMessageMixin:
     """
     Add a success message on successful form submission.
@@ -140,7 +148,9 @@ def search_article(request):
             posts = Post.objects.order_by('-published_at').filter(Q(title__icontains=search)|Q(content__icontains=search))
             posts_count = posts.count()
             lastest = Post.objects.order_by('-published_at')[0:3]
-            categories = Category.objects.all()
+            # categories = Category.objects.all()
+            categories = Category.objects.all().annotate(posts_count=Count('post'))
+
             about = Biography.objects.get()
             # print(posts)
     context = {
@@ -154,8 +164,10 @@ def search_article(request):
 
 def single_category(request, id):
     category = get_object_or_404(Category, id=id)
+    about = Biography.objects.get()
+    categories = Category.objects.all().annotate(posts_count=Count('post'))
     posts = Post.objects.filter(categories=category)
-    return render(request, 'blog/single.html', {'posts':posts})
+    return render(request, 'blog/single.html', {'posts':posts, 'categories':categories, 'about':about})
 
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
@@ -195,6 +207,38 @@ def post_detail(request, slug):
     }
     return render(request, 'blog/post_detail.html', context)
     """END"""
+
+def about(request):
+    categories = Category.objects.all().annotate(posts_count=Count('post'))
+
+    about = Biography.objects.all()[:1]
+    return render(request, 'blog/about.html', {'about':about, 'categories': categories})
+
+def contact(request):
+    if request.POST:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            emailuser = form.cleaned_data['email_address']
+            body = {
+                'name':form.cleaned_data['name'],
+                'subject':form.cleaned_data['subject'],
+                'email':form.cleaned_data['email_address'],
+                'message':form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+            try:
+                # send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
+                send_mail(subject, message, emailuser, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid Header found.')
+                messages.success(request, 'Message Sent')
+                return redirect('contact')
+                
+    form = ContactForm()
+    categories = Category.objects.all().annotate(posts_count=Count('post'))
+
+    return render(request, 'blog/contact.html', {'form':form, 'categories':categories})
 
     """Users Controllers"""
 @login_required(login_url='login')

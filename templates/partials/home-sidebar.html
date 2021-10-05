@@ -247,6 +247,31 @@
             <!-- // widget -->
 
             <!-- // widget widget-newsletter -->
+            <div class="widget widget-newsletter wow fadeInUp">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <h2>Newsletter</h2>
+                    </div>
+                    <div class="widget-extra-info-holder">
+                        <div class="widget-newsletter-content">
+                            <p>Subscribe to newsletter to be updated with all my latest trends and products.</p>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                <!-- <div class="form-group">
+                                    <input type="email" name="email" placeholder="Email Address ..." class="form-control">
+                                </div> -->
+                                <div class="form-group">
+                                    <button type="submit" name="submit" class="layout-one-btn">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--// widget-newsletter-content -->
+                    </div>
+                    <!-- // widget-extra-info-holder -->
+                </div>
+                <!-- // widget-content -->
+            </div>
 
         </div>
         <!-- // sidebar-inner -->
