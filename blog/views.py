@@ -93,7 +93,7 @@ def home(request):
         categories = Category.objects.all().annotate(posts_count=Count('post'))
         # for category in categories:
         #     print(category.posts_count)
-        about = Biography.objects.get()
+        about = Biography.objects.all()
         comment = Comment.objects.filter(active=True)
         # Pagination
         paginator = Paginator(posts, 5)
