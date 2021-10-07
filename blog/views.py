@@ -93,7 +93,7 @@ def home(request):
         categories = Category.objects.all().annotate(posts_count=Count('post'))
         # for category in categories:
         #     print(category.posts_count)
-        about = Biography.objects.all()
+        about = Biography.objects.get()
         comment = Comment.objects.filter(active=True)
         # Pagination
         paginator = Paginator(posts, 5)
@@ -430,7 +430,7 @@ def biography(request):
         form = BioForm(instance=about)
     return render(request, 'dashboard/profile/bio.html', {'form':form, 'about':about})
 
-# @unauthenticated_user
+
 class PasswordsChangeView(SuccessMessageMixin, PasswordChangeView):
     from_class = PasswordChangeForm
     success_url = reverse_lazy('password')
