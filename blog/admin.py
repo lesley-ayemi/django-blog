@@ -1,9 +1,11 @@
 from blog.models import Comment, Post, Category, Profile, Tag, Account
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
     list_display = ['title', 'author', 'status', 'published_at']
     prepopulated_fields = {"slug":("title",)}
     list_filter = ['categories', 'tag', 'status']

@@ -1,11 +1,12 @@
 from django import forms
 # from tinymce import TinyMCE
-from froala_editor.widgets import FroalaEditor
+# from froala_editor.widgets import FroalaEditor
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from django.forms import fields, widgets
 from .models import Account, Category, Comment, Post, Profile
 
 class addPostForm(forms.ModelForm):
-    content = forms.CharField(widget=FroalaEditor)
+    content = forms.CharField(widget=SummernoteWidget())
     class Meta:
         model = Post
         fields = '__all__'

@@ -32,11 +32,13 @@ urlpatterns = [
     path('marketing/', include('marketing.urls')),
     path('froala_editor/', include('froala_editor.urls')),
     url('avatar/', include('avatar.urls')),
+    path('summernote/', include('django_summernote.urls')),
+
 ] 
-urlpatterns += static(settings.MEDIA_URL,  document_root = settings.MEDIA_ROOT)
-# if settings.DEBUG:
-#         urlpatterns += static(settings.MEDIA_URL,
-#                               document_root=settings.MEDIA_ROOT)
+# urlpatterns += static(settings.MEDIA_URL,  document_root = settings.MEDIA_ROOT)
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
 
 
 # urlpatterns += staticfiles_urlpatterns()

@@ -19,7 +19,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls.base import reverse_lazy
 from django.views import generic
 from marketing.models import SignUp
-
+from .decorators import unauthenticated_user
 from blog.forms import (CategoryForm, CommentForm, ContactForm, ProfileForm,
                         RegisterForm, UserUpdateForm, addPostForm)
 from blog.models import Category, Comment, Post, Tag
@@ -42,6 +42,7 @@ class SuccessMessageMixin:
         return self.success_message % cleaned_data
 
     # """Authentications"""
+@unauthenticated_user
 def register(request):
     # form = RegisterForm()
     if request.method == 'POST':
@@ -56,7 +57,7 @@ def register(request):
             'form':form,
         }
     return render(request, 'auth/register.html', context)
-
+@unauthenticated_user
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -241,6 +242,7 @@ def contact(request):
     return render(request, 'blog/contact.html', {'form':form, 'categories':categories})
 
     """Users Controllers"""
+
 @login_required(login_url='login')
 def dashboard(request):
     # post = Post.objects.filter(author=request.user)
@@ -259,6 +261,7 @@ def dashboard(request):
     }
     return render(request, 'dashboard/index.html', context)
 
+
 @login_required(login_url='login')
 def show_post(request):
     # user_post = Post.objects.filter(author=request.user)
@@ -270,6 +273,7 @@ def show_post(request):
         # 'posts':posts,
     }
     return render(request, 'dashboard/posts/index.html', context)
+
 
 @login_required(login_url='login')
 def add_post(request):
@@ -288,6 +292,7 @@ def add_post(request):
         context = {}
         context['form']= addPostForm()
     return render(request, 'dashboard/posts/add_post.html', context)
+
 
 @login_required(login_url='login')
 def update_post(request, slug):
@@ -308,6 +313,7 @@ def update_post(request, slug):
     }
     return render(request, 'dashboard/posts/update_post.html', context)
 
+
 @login_required(login_url='login')
 def delete_post(request, slug):
     post = Post.objects.get(slug=slug)
@@ -318,6 +324,7 @@ def delete_post(request, slug):
         return redirect('show-post')
     else:
         return redirect('show-post')
+
 
 @login_required(login_url='login')
 def categories(request):
@@ -338,6 +345,7 @@ def categories(request):
 
     return render(request, 'dashboard/categories/index.html', {'categories':categories, 'form':form})
 
+
 @login_required(login_url='login')
 def update_categories(request, id):
     category = get_object_or_404(Category, id=id)
@@ -355,9 +363,11 @@ def delete_categories(request, id):
     messages.success(request, 'Category deleted successfully')
     return redirect('categories')
 
+
 def all_comments(request):
     comments = Comment.objects.all().order_by('timestamp')
     return render(request, 'dashboard/comments/index.html', {'comments':comments})
+
 
 def update_comments(request, id):
     comments = get_object_or_404(Comment, id=id)
@@ -368,11 +378,13 @@ def update_comments(request, id):
         return redirect('comments')
     return render(request, 'dashboard/comments/update_comment.html', {'form':form})
 
+
 def delete_comments(request, id):
     comment = get_object_or_404(Comment, id=id)
     comment.delete()
     messages.warning(request, 'Comment delete successfully')
     return redirect('comments')
+
 
 @login_required(login_url='login')
 def profile(request):
@@ -404,6 +416,7 @@ def profile(request):
     # context = {'form':form, 'profile':profile}
     return render(request, 'dashboard/profile/index.html', context)
 
+
 def biography(request):
     if request.method == 'POST':
         about = Biography.objects.get() 
@@ -417,6 +430,7 @@ def biography(request):
         form = BioForm(instance=about)
     return render(request, 'dashboard/profile/bio.html', {'form':form, 'about':about})
 
+# @unauthenticated_user
 class PasswordsChangeView(SuccessMessageMixin, PasswordChangeView):
     from_class = PasswordChangeForm
     success_url = reverse_lazy('password')

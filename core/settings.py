@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'avatar',
     'taggit',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +176,5 @@ AUTH_USER_MODEL = 'blog.Account'
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST=env('EMAIL_HOST')
 EMAIL_PORT=env('EMAIL_PORT')
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
