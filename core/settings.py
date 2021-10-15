@@ -174,7 +174,8 @@ AUTH_USER_MODEL = 'blog.Account'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_SSL=env('EMAIL_USE_SSL')
+EMAIL_USE_SSL=False
+EMAIL_USE_TSL=True
 EMAIL_HOST=env('EMAIL_HOST')
 EMAIL_HOST_USER=env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
