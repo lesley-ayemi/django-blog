@@ -2,24 +2,24 @@
 
     <aside class="sidebar">
         <div class="sidebar-inner">
+            {% if about %}
             <div class="widget widget-about-me wow fadeInUp">
                 
-                {% if about %}
+                {% for me in about %}
                     
-                
                     
                 <div class="widget-content">
-                    <div class="widget-about-me-profile">
-                        <img src="{{about.image.url}}" alt="...">
+                    <div class="widget-me-me-profile">
+                        <img src="{{me.image.url}}" alt="...">
                     </div>
                     <div class="widget-extra-info-holder">
                         <div class="widget-author-name">
-                            <h3>{{about.name}}</h3>
-                            <span class="author-profession">{{about.title}}</span>
+                            <h3>{{me.name}}</h3>
+                            <span class="author-profession">{{me.title}}</span>
                         </div>
                         <div class="widget-author-bio">
                             <p>
-                                {{about.bio|truncatewords:15}}
+                                {{me.bio}}
                             </p>
                         </div>
                         <div class="widget-author-social">
@@ -105,6 +105,7 @@
                 </div>
                 <!-- // widget-content -->
             </div>
+            {% endfor %}
             {% else %}
 
             {% endif %}

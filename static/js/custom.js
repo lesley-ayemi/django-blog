@@ -304,6 +304,7 @@ $("#sidebar_menu >li a").filter(function() {
 
   if ($('.lms_table_active').length) {
     $('.lms_table_active').DataTable({
+        "order": ['desc'],
         bLengthChange: false,
         "bDestroy": true,
         language: {
@@ -345,6 +346,7 @@ $("#sidebar_menu >li a").filter(function() {
 
 if ($('.lms_table_active3').length) {
     $('.lms_table_active3').DataTable({
+        "order": ['desc'],
         bLengthChange: false,
         "bDestroy": false,
         language: {

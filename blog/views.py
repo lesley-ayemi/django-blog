@@ -14,10 +14,11 @@ from django.core.mail import BadHeaderError, send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Count
 from django.db.models.query_utils import Q
-from django.http.response import BadHeaderError, HttpResponse
+from django.http.response import BadHeaderError, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls.base import reverse_lazy
 from django.views import generic
+from core.settings import EMAIL_HOST_USER
 from marketing.models import SignUp
 from .decorators import unauthenticated_user
 from blog.forms import (CategoryForm, CommentForm, ContactForm, ProfileForm,
@@ -93,7 +94,7 @@ def home(request):
         categories = Category.objects.all().annotate(posts_count=Count('post'))
         # for category in categories:
         #     print(category.posts_count)
-        about = Biography.objects.get()
+        about = Biography.objects.filter(id=1)
         comment = Comment.objects.filter(active=True)
         # Pagination
         paginator = Paginator(posts, 5)
@@ -123,9 +124,10 @@ def all_articles(request):
 
     posts = Post.objects.all().filter(status='published')
     lastest = Post.objects.order_by('-published_at')[0:3]
+    comment = Comment.objects.filter(active=True)
     # categories = Category.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('post'))
-    about = Biography.objects.get()
+    about = Biography.objects.filter(id=1)
     # Pagination
     paginator = Paginator(posts, 12)
     page_request_var = 'page'
@@ -137,7 +139,7 @@ def all_articles(request):
     except EmptyPage:
         paginated_queryset = paginator.page(paginator.num_pages)
 
-    context = {'posts':paginated_queryset, 'lastest':lastest, 'categories':categories, 'about':about, 'page':page,
+    context = {'posts':paginated_queryset, 'lastest':lastest, 'categories':categories, 'comment':comment, 'about':about, 'page':page,
             'page_request_var':page_request_var}
     return render(request, 'blog/all_posts.html', context)
 
@@ -152,7 +154,7 @@ def search_article(request):
             # categories = Category.objects.all()
             categories = Category.objects.all().annotate(posts_count=Count('post'))
 
-            about = Biography.objects.get()
+            about = Biography.objects.filter(id=1)
             # print(posts)
     context = {
         'posts':posts,
@@ -165,7 +167,7 @@ def search_article(request):
 
 def single_category(request, id):
     category = get_object_or_404(Category, id=id)
-    about = Biography.objects.get()
+    about = Biography.objects.filter(id=1)
     categories = Category.objects.all().annotate(posts_count=Count('post'))
     posts = Post.objects.filter(categories=category)
     return render(request, 'blog/single.html', {'posts':posts, 'categories':categories, 'about':about})
@@ -182,14 +184,14 @@ def post_detail(request, slug):
     # time.sleep(3) #not recommend
     # categories = Category.objects.all()
     categories = Category.objects.all().annotate(posts_count=Count('post'))
-    about = Biography.objects.get()
-    comments = Comment.objects.filter(post=post)
+    about = Biography.objects.filter(id=1)
+    comments = Comment.objects.filter(post=post, active=True)
     tags = Tag.objects.all()
     comment_form = CommentForm()
     new_comment = None
     # posted comment 
     if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
+        comment_form = CommentForm(data=request.POST, initial={'active':True})
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
@@ -212,29 +214,44 @@ def post_detail(request, slug):
 def about(request):
     categories = Category.objects.all().annotate(posts_count=Count('post'))
 
-    about = Biography.objects.all()[:1]
+    about = Biography.objects.filter(id=2)
     return render(request, 'blog/about.html', {'about':about, 'categories': categories})
 
 def contact(request):
     if request.POST:
         form = ContactForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            emailuser = form.cleaned_data['email_address']
-            body = {
-                'name':form.cleaned_data['name'],
-                'subject':form.cleaned_data['subject'],
-                'email':form.cleaned_data['email_address'],
-                'message':form.cleaned_data['message'],
-            }
-            message = "\n".join(body.values())
+            subject = request.POST.get('subject', '')
+            message = request.POST.get('message', '')
+            # name = request.POST.get('name', '')
+            from_email = request.POST.get('email_address', '')
+            to_email = ('no-reply@blesidiary.com', '')
+        if  subject and message and from_email:
             try:
-                # send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
-                send_mail(subject, message, emailuser, ['admin@example.com'])
+                send_mail(subject, message, from_email, EMAIL_HOST_USER)
             except BadHeaderError:
-                return HttpResponse('Invalid Header found.')
-                messages.success(request, 'Message Sent')
-                return redirect('contact')
+                return HttpResponse('Invalid header found.')
+            return HttpResponseRedirect('/contact')
+        else:
+            # In reality we'd use a form class
+            # to get proper validation errors.
+            return HttpResponse('Make sure all fields are entered and valid.')
+            # subject = form.cleaned_data['subject']
+            # emailuser = form.cleaned_data['email_address']
+            # body = {
+            #     'name':form.cleaned_data['name'],
+            #     'subject':form.cleaned_data['subject'],
+            #     'email':form.cleaned_data['email_address'],
+            #     'message':form.cleaned_data['message'],
+            # }
+            # message = "\n".join(body.values())
+            # try:
+            #     # send_mail(subject, message, 'admin@example.com', ['admin@example.com'])
+            #     send_mail(subject, message, emailuser, ['support@blesidiary.com'])
+            # except BadHeaderError:
+            #     return HttpResponse('Invalid Header found.')
+            #     messages.success(request, 'Message Sent')
+            # return redirect('contact')
                 
     form = ContactForm()
     categories = Category.objects.all().annotate(posts_count=Count('post'))
@@ -418,17 +435,21 @@ def profile(request):
 
 
 def biography(request):
-    if request.method == 'POST':
-        about = Biography.objects.get() 
-        form = BioForm(request.POST, instance=about)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Bio Updated')
-            return redirect('biography')
-    else:
-        about = Biography.objects.get() 
-        form = BioForm(instance=about)
-    return render(request, 'dashboard/profile/bio.html', {'form':form, 'about':about})
+    abouts = Biography.objects.all().order_by('id')
+    context = {
+        'abouts':abouts,
+    }
+    return render(request, 'dashboard/profile/bio.html', context)
+
+
+def biography_update(request, id):
+    about = get_object_or_404(Biography, id=id)
+    form = BioForm(request.POST or None, request.FILES or None, instance=about)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Updated Successfully')
+        return redirect('biography')
+    return render(request, 'dashboard/profile/bio2.html',{'form':form})
 
 
 class PasswordsChangeView(SuccessMessageMixin, PasswordChangeView):

@@ -14,9 +14,25 @@ class addPostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+
     class Meta:
+        # class CheckboxInput(forms.CheckboxInput):
+        #     def __init__(self, default=False, *args, **kwargs):
+        #         super(CheckboxInput, self).__init__(*args, **kwargs)
+        #         self.default = default
+
+        # def value_from_datadict(self, data, files, name):
+        #     if name not in data:
+        #         return self.default
+        #     return super(CheckboxInput, self).value_from_datadict(data, files, name)
+
         model = Comment
         fields = ['name', 'email', 'content', 'active']
+        def __init__(self, *args, **kwargs):
+            super(CommentForm, self).__init__(*args, **kwargs)
+
+            self.fields['active'].widget.attrs['checked'] = True
+        # active = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -55,7 +71,7 @@ class UserUpdateForm(forms.ModelForm):
 # )
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100)
+    # name = forms.CharField(max_length=100)
     subject = forms.CharField(max_length=200)
     email_address = forms.EmailField(max_length=200)
     message = forms.CharField(widget=forms.Textarea, max_length=2000)

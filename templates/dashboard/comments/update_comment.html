@@ -15,7 +15,7 @@
         <form action="." method="POST">
             {% csrf_token %}
             {{form|crispy}}
-                
+            {{form.active}}   
             <input type="submit" class="btn btn-primary" value="update">
 
         </form>

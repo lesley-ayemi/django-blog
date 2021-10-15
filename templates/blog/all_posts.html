@@ -29,7 +29,7 @@
 
                                     <div class="post-extra-details">
                                         <div class="post-meta-category">
-                                            <span><a href="#">{{post.categories}}</a></span>
+                                            <span><a href="javascript:void(O)">{{post.categories}}</a></span>
                                         </div>
                                         <div class="post-title">
                                             <h2><a href="{% url 'post-detail' post.slug %}">{{post.title|truncatewords:2}}</a></h2>
@@ -38,13 +38,13 @@
                                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                 <div class="post-author">
                                                     <img src="{{post.author.profile.image.url}}" height="20" alt="....">
-                                                    <span><a href="#">{{post.author}}</a></span>
+                                                    <span><a href="javascript:void(O)">{{post.author}}</a></span>
                                                 </div>
                                             </div>
                                             <!-- // col -->
                                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                                 <div class="post-meta-views-count">
-                                                    <span><a href="#">{{post.comment_count}}</a></span>
+                                                    <span><a href="{{post.get_absolute_url}}">Read</a></span>
                                                 </div>
                                             </div>
                                             <!-- // col -->
