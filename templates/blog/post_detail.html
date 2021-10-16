@@ -33,7 +33,7 @@
             <div class="main-post-area-holder">
                 <article class="single-page-details-holder wow fadeInUp">
                     <div class="post-image">
-                        <img src="static/assets/dist/img/post-eight.jpg" alt="....">
+                        <!-- <img src="static/assets/dist/img/post-eight.jpg" alt="...."> -->
                     </div>
                     <div class="single-page-other-information-holder">
                         <div class="posted-category">
@@ -51,14 +51,14 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="post-author">
-                                        <img src="{{post.author.profile.image.url}}" alt="...." height="30">
-                                        <span><a href="#">{{post.author}}</a></span>
+                                        <img src="{{post.author.profile.image.url}}" alt="...." height="30" width="30">
+                                        <span><a href="javascript:void(0)">{{post.author}}</a></span>
                                     </div>
                                 </div>
                                 <!-- // col -->
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="posted-date">
-                                        <span><a href="#">{{post.published_at|date}}</a></span>
+                                        <span><a href="javascript:void(0)">{{post.published_at|date}}</a></span>
                                     </div>
                                 </div>
                                 <!-- // col -->
@@ -136,8 +136,9 @@
                             
                                 
                             <article class="review-box clearfix">
-                                <figure class="rev-thumb">
-                                    <img src="/media/default.png" alt="">
+                                <figure class="rev-thumb" >
+                                    <!-- <img src="/media/default.png" alt=""> -->
+                                    <img src="https://www.pngkit.com/png/full/302-3022217_roger-berry-avatar-placeholder.png" alt="">
                                     <!-- {% avatar user %} -->
                                     <!-- <a href="{% url 'avatar_change'%}"></a> -->
                                     </figure>
