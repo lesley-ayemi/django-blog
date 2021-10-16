@@ -228,7 +228,7 @@ def contact(request):
             to_email = ('no-reply@blesidiary.com', '')
         if  subject and message and from_email:
             try:
-                send_mail(subject, message, from_email, ['no-reply@blesidiary.com'])
+                send_mail(subject, message, from_email, ['info@blesidiary.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect('/contact')
