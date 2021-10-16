@@ -49,20 +49,44 @@
                         <div class="widget-social-links">
                             <ul class="social-links-list">
                                 <li class="facebook-link">
-                                    <a href="{{about.facebook}}" class="clearfix" target="_blank">
+                                    
+                                    {% if me.facebook %}
+                                    <a href="{{me.facebook}}" class="clearfix" target="_blank">
                                         Facebook
                                         <span class="social-icon">
                                             <i class="fa fa-facebook"></i>
                                         </span>
                                     </a>
+                                    
+                                    {% else %}
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Facebook
+                                        <span class="social-icon">
+                                            <i class="fa fa-facebook"></i>
+                                        </span>
+                                    </a>
+
+                                    {% endif %}
+                                        
                                 </li>
                                 <li class="twitter-link">
-                                    <a href="{{about.twitter}}" class="clearfix" target="_blank">
+                                    {% if me.twitter %}
+                                    <a href="{{me.twitter}}" class="clearfix" target="_blank">
                                         Twitter
                                         <span class="social-icon">
                                             <i class="fa fa-twitter"></i>
                                         </span>
                                     </a>
+                                    
+                                    {% else %}
+                                    
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Twitter
+                                        <span class="social-icon">
+                                            <i class="fa fa-twitter"></i>
+                                        </span>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 <!-- <li class="googleplus-link">
                                     <a href="http://plus.google.com/" class="clearfix"
@@ -74,13 +98,25 @@
                                     </a>
                                 </li> -->
                                 <li class="instagram-link">
-                                    <a href="{{about.instagram}}" class="clearfix"
+                                    {% if me.instagram %}
+                                    <a href="{{me.instagram}}" class="clearfix"
                                         target="_blank">
                                         Instagram
                                         <span class="social-icon">
                                             <i class="fa fa-instagram"></i>
                                         </span>
                                     </a>
+                                    
+                                    {% else %}
+                                    
+                                    <a href="javascript:void(0)" class="clearfix"
+                                        target="_blank">
+                                        Instagram
+                                        <span class="social-icon">
+                                            <i class="fa fa-instagram"></i>
+                                        </span>
+                                    </a>
+                                    {% endif %}
                                 </li>
                                 <!-- <li class="linkedin-link">
                                     <a href="http://linkedin.com/" class="clearfix" target="_blank">
@@ -91,12 +127,23 @@
                                     </a>
                                 </li> -->
                                 <li class="youtube-link">
-                                    <a href="{{about.youtube}}" class="clearfix" target="_blank">
+                                    {% if me.youtube %}
+                                    <a href="{{me.youtube}}" class="clearfix" target="_blank">
                                         Youtube
                                         <span class="social-icon">
                                             <i class="fa fa-youtube"></i>
                                         </span>
                                     </a>
+                                    
+                                    {% else %}
+                                    
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Youtube
+                                        <span class="social-icon">
+                                            <i class="fa fa-youtube"></i>
+                                        </span>
+                                    </a>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>
