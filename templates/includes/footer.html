@@ -26,10 +26,14 @@
 
                             </div>
 
+                            {% if about %}
                             <div class="widget-content">
-
-                                <p>{{about.bio}}</p>
-
+                            {% for me in about %}
+                                <!-- <p>{{me.bio}}</p> -->
+                                        
+                                
+                                        
+                                
                             </div>
 
                             <!-- // widget-content -->
@@ -37,15 +41,51 @@
                             <div class="social-networks">
 
                                 <ul class="social-links">
-                                    <li><a href="{{about.facebook}}" target="_blank"></a></li>
-                                    <li><a href="{{about.twitter}}" target="_blank"></a></li>
-                                    <li><a href="{{about.instagram}}" target="_blank"></a></li>
-                                    <li><a href="{{about.youtube}}" target="_blank"></a></li>
-                                    <li><a href="{{about.snapchat}}" target="_blank"></a></li>
+                                    
+                                    {% if me.facebook %}
+                                    <li><a href="{{me.facebook}}" target="_blank"></a></li>
+                                    {% else %}
+                                        
+                                    {% endif %}
+
+                                    
+                                    {% if me.twitter %}
+                                    <li><a href="{{me.twitter}}" target="_blank"></a></li>
+
+                                    {% else %}
+                                        
+                                    {% endif %}
+                                        
+                                        
+                                    
+                                    {% if me.instagram %}
+                                    <li><a href="{{me.instagram}}" target="_blank"></a></li>
+
+                                    {% else %}
+                                        
+                                    {% endif %}
+                                        
+                                    {% if me.youtube %}
+                                    <li><a href="{{me.youtube}}" target="_blank"></a></li>
+
+                                    {% else %}
+                                        
+                                    {% endif %}
+
+                                    {% if me.snapchat %}
+                                    <li><a href="{{me.snapchat}}" target="_blank"></a></li>
+
+                                    {% else %}
+                                        
+                                    {% endif %}
                                 </ul>
 
                             </div>
+                            {% endfor %}
 
+                            {% else %}
+
+                            {% endif %}
                         </div>
 
                         <!-- // footer-widget-content -->
