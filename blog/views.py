@@ -67,9 +67,14 @@ def login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             # changed the login default name
-            auth_login(request, user)
-            return redirect('dashboard')
+            if user.is_active == True:
+                auth_login(request, user)
+                return redirect('dashboard')
+            else:
+                messages.warning(request, 'Your account is disabled')
+                return redirect('login')
         else:
+            messages.info(request, 'Username or password is incorrecct')
             return redirect('login')
 
     return render(request, 'auth/login.html')

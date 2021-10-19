@@ -585,12 +585,12 @@ jQuery(document).ready(function($) {
 
     });
 
-    feed.run();
+    // feed.run();
 
 });
 
 
-    $('.covervid-video').coverVid(1920, 1080);
+    // $('.covervid-video').coverVid(1920, 1080);
 
 
 

@@ -5,14 +5,15 @@
 <div class="col-sm-12 login-section-wrapper">
     <div class="brand-wrapper">
       <a href="/">
-      <img src="{% static 'assets/dist/img/logo.svg' %}" alt="logo" class="logo">
+      <!-- <img src="{% static 'assets/dist/img/logo.svg' %}" alt="logo" class="logo"> -->
       </a>
     </div>
     <div class="login-wrapper my-auto container">
-      {% for message in messages %}
+      <!-- {% for message in messages %}
             <p class="btn btn-success">{{message}}</p>
-        {% endfor %}
-      <h1 class="login-title">Log in</h1>
+        {% endfor %} -->
+        {% include 'partials/messages.html' %}
+        
       <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
