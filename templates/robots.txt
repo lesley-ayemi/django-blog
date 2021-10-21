@@ -1,20 +1,5 @@
 User-Agent: *
-Disallow: /dashboard
-Disallow: /dashboard/password
-Disallow: /dashboard/biography/update/<id>
-Disallow: /dashboard/biography
-Disallow: /dashboard/profile
-Disallow: /dashboard/comments/delete/<id>
-Disallow: /dashboard/comments/<id>
-Disallow: /dashboard/comments
-Disallow: /dashboard/categories/delete/<id>
-Disallow: /dashboard/categories/<id>
-Disallow: /dashboard/categories/
-Disallow: /dashboard/posts/delete-post/<slug>/
-Disallow: /dashboard/posts/update-post/<slug>/
-Disallow: /dashboard/posts/add-post/
-Disallow: /dashboard/posts/all-posts/
-Disallow: /admin
+Disallow:
 
 Sitemap: https://blesidiary.com/sitemap.xml
 
