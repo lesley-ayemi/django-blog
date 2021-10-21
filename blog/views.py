@@ -121,6 +121,7 @@ def home(request):
             'categories':categories,
             'about':about,
             'comment':comment,
+            'home':home,
         }
 
     return render(request, 'blog/main.html', context)
