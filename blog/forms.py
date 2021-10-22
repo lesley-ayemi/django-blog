@@ -33,6 +33,7 @@ class CommentForm(forms.ModelForm):
 
             self.fields['active'].widget.attrs['checked'] = True
         # active = forms.BooleanField(widget=CheckboxInput(default=True), required=False)
+        
 
 class CategoryForm(forms.ModelForm):
     class Meta:
