@@ -6,7 +6,7 @@ class SubscribeForm(forms.ModelForm):
     email = forms.EmailField(label='', 
     widget=forms.EmailInput(
         attrs={'placeholder':'Enter your email'}
-        ))
+        ), required=True)
     class Meta:
         model = SignUp
         fields = ['email']

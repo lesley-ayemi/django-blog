@@ -9,6 +9,9 @@ from django.template.defaultfilters import default, slugify
 from froala_editor.fields import FroalaField
 from PIL import Image
 from taggit.managers import TaggableManager
+from django.core.mail import send_mail
+from core.settings import EMAIL_HOST_USER
+from marketing.models import SignUp
 
 # Create your models here.
 
@@ -141,8 +144,17 @@ class Post(models.Model):
         ordering = ('-published_at',)
 
     def __str__(self):
-        return self.title
-    
+        return self.title    
+@receiver(post_save, sender=Post)
+def SendEmail(sender , instance, created, **kwargs):
+    if created:
+        emails = list(SignUp.objects.values('email'))
+        recepients = []
+        for i in range(0, len(emails)):
+            recepients.append(emails[i]['email'])
+            pass
+        send_mail('New Post on BlesiDiary','hello blesidiary welcome you once again to view our content'+' '+str(instance.title), EMAIL_HOST_USER, recepients, fail_silently=False)
+        pass
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', null=True)
