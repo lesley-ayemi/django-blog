@@ -49,13 +49,28 @@
                         <div class="widget-social-links">
                             <ul class="social-links-list">
                                 <li class="facebook-link">
+                                    
+                                    {% if about.facebook %}
                                     <a href="{{about.facebook}}" class="clearfix" target="_blank">
                                         Facebook
                                         <span class="social-icon">
                                             <i class="fa fa-facebook"></i>
                                         </span>
                                     </a>
+                                    {% else %}
+
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Facebook
+                                        <span class="social-icon">
+                                            <i class="fa fa-facebook"></i>
+                                        </span>
+                                    </a>
+                                        
+                                    {% endif %}
+                                        
                                 </li>
+                                
+                                {% if about.twitter %}
                                 <li class="twitter-link">
                                     <a href="{{about.twitter}}" class="clearfix" target="_blank">
                                         Twitter
@@ -64,6 +79,18 @@
                                         </span>
                                     </a>
                                 </li>
+                                {% else %}
+                                <li class="twitter-link">
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Twitter
+                                        <span class="social-icon">
+                                            <i class="fa fa-twitter"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                    
+                                {% endif %}
+                                    
                                 <!-- <li class="googleplus-link">
                                     <a href="http://plus.google.com/" class="clearfix"
                                         target="_blank">
@@ -73,6 +100,8 @@
                                         </span>
                                     </a>
                                 </li> -->
+                                
+                                {% if about.instagram %}
                                 <li class="instagram-link">
                                     <a href="{{about.instagram}}" class="clearfix"
                                         target="_blank">
@@ -82,6 +111,19 @@
                                         </span>
                                     </a>
                                 </li>
+                                {% else %}
+                                <li class="instagram-link">
+                                    <a href="javascript:void(0)" class="clearfix"
+                                        target="_blank">
+                                        Instagram
+                                        <span class="social-icon">
+                                            <i class="fa fa-instagram"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                    
+                                {% endif %}
+                                    
                                 <!-- <li class="linkedin-link">
                                     <a href="http://linkedin.com/" class="clearfix" target="_blank">
                                         Linked In
@@ -90,6 +132,8 @@
                                         </span>
                                     </a>
                                 </li> -->
+                                
+                                {% if about.youtube %}
                                 <li class="youtube-link">
                                     <a href="{{about.youtube}}" class="clearfix" target="_blank">
                                         Youtube
@@ -98,6 +142,18 @@
                                         </span>
                                     </a>
                                 </li>
+                                {% else %}
+                                <li class="youtube-link">
+                                    <a href="javascript:void(0)" class="clearfix" target="_blank">
+                                        Youtube
+                                        <span class="social-icon">
+                                            <i class="fa fa-youtube"></i>
+                                        </span>
+                                    </a>
+                                </li>
+                                    
+                                {% endif %}
+                                    
                             </ul>
                         </div>
 
