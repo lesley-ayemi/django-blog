@@ -145,16 +145,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title    
-@receiver(post_save, sender=Post)
-def SendEmail(sender , instance, created, **kwargs):
-    if created:
-        emails = list(SignUp.objects.values('email'))
-        recepients = []
-        for i in range(0, len(emails)):
-            recepients.append(emails[i]['email'])
-            pass
-        send_mail('New Post on BlesiDiary','hello blesidiary welcome you once again to view our content'+' '+str(instance.title), EMAIL_HOST_USER, recepients, fail_silently=False)
-        pass
+# @receiver(post_save, sender=Post)
+# def SendEmail(sender , instance, created, **kwargs):
+#     if created:
+#         emails = list(SignUp.objects.values('email'))
+#         recepients = []
+#         for i in range(0, len(emails)):
+#             recepients.append(emails[i]['email'])
+#             pass
+#         send_mail('New Post on BlesiDiary','hello blesidiary welcome you once again to view our content'+' '+str(instance.title), EMAIL_HOST_USER, recepients, fail_silently=False)
+#         pass
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', null=True)
