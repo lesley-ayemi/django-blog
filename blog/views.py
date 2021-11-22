@@ -92,8 +92,8 @@ def home(request):
         messages.success(request, 'You have successfully subscribed to the newsletter')
         return redirect('home')
     else:
-        posts = Post.objects.all.filter(status='PUBLISHED')
-        featured = Post.objects.filter(featured=True)[0:4]
+        posts = Post.objects.all.filter(status='published')
+        featured = Post.objects.filter(featured=True, status='published')[0:4]
         lastest = Post.objects.order_by('-published_at')[0:3]
         # categories = Category.objects.all()
         categories = Category.objects.all().annotate(posts_count=Count('post'))
