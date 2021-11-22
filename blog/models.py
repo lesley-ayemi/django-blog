@@ -124,6 +124,7 @@ class Post(models.Model):
     # content = FroalaField()
     blog_image = models.ImageField(upload_to='images/blog/', null=True, default='blog_default.png')
     categories = models.ForeignKey(Category, null=True, on_delete=CASCADE, blank=True)
+    blog_video = models.FileField(blank=True, upload_to='videos/blog/', null=True, verbose_name='upload a video')
     # comments = models.ManyToManyField(Comment, blank=True)
     # comment_count = models.IntegerField(default=0, null=True)
     tag = TaggableManager()

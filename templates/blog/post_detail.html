@@ -81,6 +81,26 @@
                                 {{post.content|safe}}
                             </p>
 
+                            
+                            {% if post.blog_video %}
+                            <style>
+                                video
+                                {
+                                    width: 100%;
+                                    height: auto;
+                                }
+                            </style>
+                            <video controls>
+                                <source src="{{post.blog_video.url}}" type="video/mp4">
+                                <!-- <source src="movie.ogg" type="video/ogg"> -->
+                                Your browser does not support the video tag.
+                            </video>
+
+                            {% else %}
+
+                                
+                            {% endif %}
+                                
                         </div>
                         <!-- // post-the-content  -->
                         <!-- <div class="post-share">
