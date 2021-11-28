@@ -49,16 +49,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'django.contrib.sites',
     'django.contrib.sitemaps',
-    'froala_editor',
     
+    # django apps
     'blog.apps.BlogConfig',
     'marketing.apps.MarketingConfig',
     'aboutme.apps.AboutmeConfig',
+    
+    # 3rd party apps
     'crispy_forms',
-    'avatar',
     'taggit',
     'django_summernote',
     'django_extensions',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -192,6 +194,15 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
-SESSION_EXPIRE_SECONDS = 1800
+SESSION_EXPIRE_SECONDS = 3600
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
-SESSION_TIMEOUT_REDIRECT = 'login'
+SESSION_TIMEOUT_REDIRECT = 'login' 
+
+# amazon web services s3 bucket config
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

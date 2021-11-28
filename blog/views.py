@@ -24,6 +24,7 @@ from .decorators import unauthenticated_user
 from blog.forms import (CategoryForm, CommentForm, ContactForm, ProfileForm,
                         RegisterForm, UserUpdateForm, addPostForm)
 from blog.models import Category, Comment, Post, Tag
+from django.views.decorators.cache import cache_page
 
 
 class SuccessMessageMixin:
@@ -178,6 +179,7 @@ def single_category(request, id):
     posts = Post.objects.filter(categories=category)
     return render(request, 'blog/single.html', {'posts':posts, 'categories':categories, 'about':about})
 
+@cache_page(60 * 15)
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
     session_key = 'post_views_{}'.format(post.slug)

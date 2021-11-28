@@ -1,6 +1,5 @@
 {% extends 'admin.html' %}
 {% load static %}
-{% load avatar_tags %}
 {% block content %}
 
 <div class="row">
@@ -171,8 +170,6 @@
                                             {% if post_obj.blog_image %}
                                             <img class="img-fluid radius_50" src="{{post_obj.blog_image.url}}" alt="">
                                             {% else %}
-                                            <!-- <img class="img-fluid radius_50" src="{% avatar user %}" alt=""> -->
-                                            {% avatar user class="img-fluid radius_50" %}
                                                 
                                             {% endif %}
                                                 

@@ -6,7 +6,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template.defaultfilters import default, slugify
-from froala_editor.fields import FroalaField
 from PIL import Image
 from taggit.managers import TaggableManager
 from django.core.mail import send_mail
@@ -121,7 +120,6 @@ class Post(models.Model):
     author = models.ForeignKey(Account, on_delete=CASCADE, null=True)
     # description = models.TextField(null=True, blank=True)
     content = models.TextField()
-    # content = FroalaField()
     blog_image = models.ImageField(upload_to='images/blog/', null=True, default='blog_default.png')
     categories = models.ForeignKey(Category, null=True, on_delete=CASCADE, blank=True)
     blog_video = models.FileField(blank=True, upload_to='videos/blog/', null=True, verbose_name='upload a video')

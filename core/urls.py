@@ -38,8 +38,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('marketing/', include('marketing.urls')),
-    path('froala_editor/', include('froala_editor.urls')),
-    url('avatar/', include('avatar.urls')),
     path('summernote/', include('django_summernote.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
 						name='django.contrib.sitemaps.views.sitemap'),
