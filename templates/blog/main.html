@@ -70,7 +70,6 @@ BlesiDiary
             <div class="main-post-area-holder">
 
                 {% if posts %}
-                {% cache 500 posts_list %}
                       
                 {% for post in posts %}
                     
@@ -126,7 +125,6 @@ BlesiDiary
                     </div>
                 </article>
                 {% endfor %}
-                {% endcache %}
                 
                 <!-- // post-details-holder -->
 

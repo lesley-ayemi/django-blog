@@ -179,7 +179,7 @@ def single_category(request, id):
     posts = Post.objects.filter(categories=category)
     return render(request, 'blog/single.html', {'posts':posts, 'categories':categories, 'about':about})
 
-# @cache_page(60 * 15)
+
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
     session_key = 'post_views_{}'.format(post.slug)
