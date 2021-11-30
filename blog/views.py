@@ -179,7 +179,7 @@ def single_category(request, id):
     posts = Post.objects.filter(categories=category)
     return render(request, 'blog/single.html', {'posts':posts, 'categories':categories, 'about':about})
 
-@cache_page(60 * 15)
+# @cache_page(60 * 15)
 def post_detail(request, slug):
     post = Post.objects.get(slug=slug)
     session_key = 'post_views_{}'.format(post.slug)
@@ -332,7 +332,8 @@ def update_post(request, slug):
         instance=post
     )
     if form.is_valid():
-            form.save()
+            form.save(commit=False)
+            form.save_m2m()
             messages.success(request, 'Successfully updated post')
             return redirect('show-post')
     context = {
