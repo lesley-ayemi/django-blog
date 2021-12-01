@@ -15,12 +15,12 @@ BlesiDiary
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 
-                {% if featured %}
+                {% if featured.count >= 3 %}
                     
                 {% for f in featured %}
                 <div class="swiper-slide  banner-card">
                     <div class="featured-post-image">
-                        <img src="{{f.blog_image.url}}" height="200" alt="....">
+                        <img src="{{f.blog_image.url}}" height="200" alt="{{f.title}}">
                         <div class="mask"></div>
                     </div>
                     <!-- // featured-post-image -->
