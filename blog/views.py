@@ -326,13 +326,15 @@ def update_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
     if post.author != request.user:
         return redirect('show-post')
-    form = addPostForm(
-        request.POST or None,
-        request.FILES or None,
-        instance=post
-    )
+    else:
+        form = addPostForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=post
+        )
     if form.is_valid():
-            form.save(commit=False)
+            post = form.save(commit=False)
+            post.save()
             form.save_m2m()
             messages.success(request, 'Successfully updated post')
             return redirect('show-post')
