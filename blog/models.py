@@ -11,6 +11,7 @@ from taggit.managers import TaggableManager
 from django.core.mail import send_mail
 from core.settings import EMAIL_HOST_USER
 from marketing.models import SignUp
+from autoslug import AutoSlugField
 
 # Create your models here.
 
@@ -116,7 +117,7 @@ class Post(models.Model):
         ('draft', 'DRAFT')
     )
     title = models.CharField(max_length=1000, null=True)
-    slug = models.SlugField(max_length=1000 ,null=True, unique=True)
+    slug = AutoSlugField(populate_from='title', always_update=True, unique_with=('published_at__month', 'author'), null=True)
     author = models.ForeignKey(Account, on_delete=CASCADE, null=True)
     # description = models.TextField(null=True, blank=True)
     content = models.TextField()
